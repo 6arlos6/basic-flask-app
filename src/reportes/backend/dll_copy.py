@@ -2309,13 +2309,24 @@ def main_bloq_academ(df_pav_pap, df_matriculados_ant, df_planes, df_activos_disc
   df_merged.rename(columns={'GENERO': 'SEXO'}, inplace=True)
 
   # Seleccionar de matriculados unicamente ID, EDAD y PBM:
-  df_mat_per_v2_b = df_mat_per_v2[["ID","EDAD","PBM"]]
-  data_frames = [df_merged,
-                df_mat_per_v2_b]
-  # Hacer merge con left entre base de datos df_merged y df_mat_per_v2_b:
-  df_merged = reduce(lambda  left,right: pd.merge(left,right,on=['ID'],
-                                              how='left'), data_frames).fillna('')
+  if "EDAD" not in df_merged.columns:
+    df_mat_per_v2_b = df_mat_per_v2[["ID","EDAD"]]
+    data_frames = [df_merged,
+                  df_mat_per_v2_b]
+    # Hacer merge con left entre base de datos df_merged y df_mat_per_v2_b:
+    df_merged = reduce(lambda  left,right: pd.merge(left,right,on=['ID'],
+                                                how='left'), data_frames).fillna('')
+  if "PBM" not in df_merged.columns:
+    df_mat_per_v2_b = df_mat_per_v2[["ID","PBM"]]
+    data_frames = [df_merged,
+                  df_mat_per_v2_b]
+    # Hacer merge con left entre base de datos df_merged y df_mat_per_v2_b:
+    df_merged = reduce(lambda  left,right: pd.merge(left,right,on=['ID'],
+                                                how='left'), data_frames).fillna('')
 
+  print("===================SALIDA DE MATRICULADOS DE II df_merged> : ")
+  print(df_merged.info())
+  
   # Hacer lista con las columnas necesarias en funcion de las columnas
   # del mismo reporte del 2022:
   col_out_hoja_3_b = []
@@ -2323,8 +2334,8 @@ def main_bloq_academ(df_pav_pap, df_matriculados_ant, df_planes, df_activos_disc
       if c == "GENERO":
           c = "SEXO"
       col_out_hoja_3_b.append(c)
-  col_out_hoja_3_b.append("EDAD")
-  col_out_hoja_3_b.append("PBM")
+  #col_out_hoja_3_b.append("EDAD")
+  #col_out_hoja_3_b.append("PBM")
 
   # Crear rangos de avance (histograma):
   df_merged = crear_avance(df_merged)
@@ -2335,6 +2346,9 @@ def main_bloq_academ(df_pav_pap, df_matriculados_ant, df_planes, df_activos_disc
 
   # Seleccionar las columnas necesarias:
   df_merged = df_merged[col_out_hoja_3_b]
+  
+  if "PAPA_ACTUAL" in df_merged.columns:
+    df_merged.rename(columns={"PAPA_ACTUAL": "PAPA"}, inplace=True)
   
   return  df_merged
 
