@@ -225,6 +225,43 @@ class ModelUser():
             raise Exception(ex)
     
     @classmethod
+    def get_distinct_V3(self, db, table):
+        # sirve para mostar los valores distintos en funcion de USER y fecha de actualizacion
+        # en la tabla.
+        try:
+            cursor = db.connection.cursor()
+            # ALTER TABLE tablename AUTO_INCREMENT = 1
+            # SELECT USER, DATE_UPDATE, COUNT(*) AS cantidad FROM acmp_1 GROUP BY USER, DATE_UPDATE;
+            query = f'SELECT USER, DATE_UPDATE, PERIODO_REPORTE, COUNT(*) AS cantidad FROM {table} GROUP BY USER, DATE_UPDATE, PERIODO_REPORTE'  
+            cursor.execute(query)
+            records = cursor.fetchall()
+            print("Total number of rows in table: ", cursor.rowcount)
+            USER = []
+            DATE = []
+            PERIODO_REPORTE = []
+            COUNT = []
+            for id,row in enumerate(records):
+                user = row[0]
+                date = row[1]
+                periodo = row[2]
+                count = row[3]
+                USER.append(user)
+                DATE.append(date)
+                PERIODO_REPORTE.append(periodo)
+                COUNT.append(count)
+            df = pd.DataFrame(
+                {   
+                    'COUNT':COUNT,
+                    'USER':USER,
+                    'DATE':DATE,
+                    'PERIODO_REPORTE':PERIODO_REPORTE
+                }
+            )
+            return df
+        except Exception as ex:
+            raise Exception(ex)
+    
+    @classmethod
     def delete(self, db, table, user, date):
         try:
             cursor = db.connection.cursor()

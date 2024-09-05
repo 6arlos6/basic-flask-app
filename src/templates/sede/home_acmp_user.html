@@ -146,6 +146,7 @@
                 <th scope="col">Registros</th>
                 <th scope="col">Usuario</th>
                 <th scope="col">Fecha</th>
+                <th scope="col">Periodo</th>
                 <th scope="col">Acciones</th>
                 <th scope="col">Ver</th>
               </tr>
@@ -156,6 +157,7 @@
                 <th scope="row">{{user[0]}}</th>
                 <td>{{user[1]}}</td>
                 <td>{{user[2]}}</td>
+                <td>{{user[3]}}</td>
                 
                 <td>
                   <form action="{{ url_for('delete', reg = user[0], my_user = user[1], date = user[2]) }}" method="post">
