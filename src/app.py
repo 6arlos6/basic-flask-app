@@ -84,13 +84,12 @@ app = Flask(__name__)
 # ============================================================================
 # CONFIGURACION DATABASE and folder file:
 # ============================================================================
-app.config['SECRET_KEY'] = 'B!1w8NAt1T^%kvhUI*S^'
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'mySQ|d4m4*'
-app.config['MYSQL_DB'] = 'flask_login'
-
-app.config['UPLOAD_FOLDER'] = os.path.join('home','Analisis','basic-flask-app','src','data')
+app.config['SECRET_KEY'] = my_config_constants["flask_secret_key"]
+app.config['MYSQL_HOST'] = my_config_constants["mysql_host"]
+app.config['MYSQL_USER'] = my_config_constants["mysql_username"]
+app.config['MYSQL_PASSWORD'] = my_config_constants["mysql_password"]
+app.config['MYSQL_DB'] = my_config_constants["mysql_db"]
+app.config['UPLOAD_FOLDER'] = my_config_constants["upload_folder"]
 
 # COMTIMUACION
 
@@ -98,7 +97,7 @@ CSRFProtect(app)
 db = MySQL(app)
 login_manager_app = LoginManager(app)
 # MODELOS:
-PATH_PRINCIPAL = os.path.join('home','Analisis','basic-flask-app','src','data')
+PATH_PRINCIPAL = my_config_constants["principal_path"]
 # MODEL NUEVOS:
 MODEL_SERVICIOS = ExcelServicios(PATH_PRINCIPAL)
 MODEL_ADMIN = ExcelAdmin2(PATH_PRINCIPAL)
@@ -922,10 +921,10 @@ def home_sede_matriculados():
         session['download_file'] =  ['sede_manizales_matriculados' + '.xlsx']
 
         session['path_template'] =  'sede/home_acmp_user.html'
-        session['link'] = 'https://lookerstudio.google.com/embed/reporting/a1432038-0558-464a-a4f3-fc55bd05a927/page/p_bkke747r7c'
+        session['link'] = 'https://lookerstudio.google.com/embed/reporting/57e45d51-13a7-4292-af97-d94af2ede99a/page/p_bkke747r7c'
         session['table'] = 'sede_1'
 
-        session['servicio'] = 'Seguimiento Academico'
+        session['servicio'] = 'Reporte Matriculados'
         session['file'] = 'sede_manizales_matriculados' + '.xlsx'
         id = session['id']
         # Ayuda:
@@ -964,10 +963,10 @@ def home_sede_bloq_admin():
         session['download_file'] =  ['sede_manizales' + '.xlsx']
 
         session['path_template'] =  'sede/home_acmp_user.html'
-        session['link'] = 'https://lookerstudio.google.com/embed/reporting/a1432038-0558-464a-a4f3-fc55bd05a927/page/p_t5o24mhx7c'
+        session['link'] = 'https://lookerstudio.google.com/embed/reporting/57e45d51-13a7-4292-af97-d94af2ede99a/page/p_t5o24mhx7c'
         session['table'] = 'sede_2'
 
-        session['servicio'] = 'Seguimiento Academico'
+        session['servicio'] = 'Reporte Bloqueados casusas administrativas'
         session['file'] = 'sede_manizales' + '.xlsx'
         id = session['id']
         # Ayuda:
@@ -1001,22 +1000,17 @@ def home_sede_bloq_academ():
         session['back_url'] = url_for('home_sede_bloq_academ')
         session['path'] =  os.path.join("sede")
         session['report'] = 103
-        session['required_files'] = ['RE_CNC_TABLA DE DATOS (4).xlsx',
-                                     'RE_EST_BLQ_PER_TABLA DE DATOS (11).xlsx',
-                                     'RE_MAT_PAV_PAP_TABLA DE DATOS (31).xlsx',
-                                     'RE_MAT_PER_TABLA DE DATOS (24).xlsx',
-                                     'Matriculados_Informacion_Basica_ant.xlsx',
-                                     'RE_ACT_PER_TABLA DE DATOS(1).xlsx',
-                                     'Planes_vicent.xlsx',
-                                     "RE_MAT_PER_TABLA DE DATOS (4).xlsx",
-                                     "RE_MAT_PER_BAS_TABLA DE DATOS (17)(2).xlsx"]
+        session['required_files'] = ['RE_ACT_PER_TABLA_DE_DATOS.xlsx',
+                                    'RE_MAT_PAV_PAP_TABLA_DE_DATOS.xlsx',
+                                    'RE_MAT_PER_TABLA_DE_DATOS.xlsx',
+                                    'BLQ_Causas_Academicas_RE_EST_BLQ_PER_TABLA_DE_DATOS.xlsx']
         session['download_file'] =  ['sede_manizales' + '.xlsx']
 
         session['path_template'] =  'sede/home_acmp_user.html'
-        session['link'] = 'https://datastudio.google.com/embed/reporting/7a7f4bd0-360b-46b2-93f6-af00305f286e/page/p_0gycj7kj2c'
+        session['link'] = 'https://lookerstudio.google.com/embed/reporting/57e45d51-13a7-4292-af97-d94af2ede99a/page/p_wxx6hnhx7c'
         session['table'] = 'sede_3'
 
-        session['servicio'] = 'Seguimiento Academico'
+        session['servicio'] = 'Reporte Bloqueados casusas academicas'
         session['file'] = 'sede_manizales' + '.xlsx'
         id = session['id']
         # Ayuda:
@@ -1690,17 +1684,7 @@ def generar():
             
             # SEDE =================================================================:
                     # matriculados:
-            
-            
-        except Exception as e:
-            # Obtener el resumen del error
-            print("____________________ERROR______________________________")
-            print(traceback.format_exc().splitlines())
-            error_message = traceback.format_exc().splitlines()[-1]
-            flash(f"Hubo un error al realizar el reporte: {error_message}")
-            return json.dumps({'status':'OK'})
-       
-        if session['report'] == 101: 
+            if session['report'] == 101: 
                
                 # Cargar datos historicos:
                 df_historico = ModelUser.get_all_table(db, session["table"], report='delete_sede')
@@ -1712,7 +1696,7 @@ def generar():
                 # Mostrar:
                 print(Rep)
                 # Paths informes estaticos:
-                PATH_PRINCIPAL_2 = os.path.join('/home/Analisis/basic-flask-app/src/data','static_data', 'sede')
+                PATH_PRINCIPAL_2 = my_config_constants["path_principal_2"]
                 name_activos2 = os.path.join('FACULTADES_MAIN_2022_2S.xlsx')
                 name_bloq_admin = os.path.join('FACULTADES_BLOQUEADOS_ADMINISTRATIVAS.xlsx')
                 name_bloq_academ = os.path.join('FACULTADES_BLOQUEADOS_ACADEMICAS.xlsx')
@@ -1762,7 +1746,7 @@ def generar():
                 df_matriculados_def = check_repeat_main(df_final, cols_gsh)
                 
                 # save reporte:
-                path_save = "/home/Analisis/basic-flask-app/src/data/sede/generados/"
+                path_save = my_config_constants["path_save_sede"]
                 df_matriculados_def.to_excel(path_save + session['download_file'][0] , index=False)
                 
                 # Cast df:
@@ -1804,6 +1788,282 @@ def generar():
                 # QUITAR UNAMED
                 msj = ModelUser.upload_df(db, df_matriculados_def, session['table'])
                 return json.dumps({'status':'OK'})
+        
+            # Bloqueados causas administrativas:
+            if session['report'] == 102:
+            
+                df_historico = ModelUser.get_all_table(db, session["table"], report='delete_sede')
+                
+                
+                print('HISTORICO ==================================================')
+                print(len(df_historico))
+                
+                Rep = session["periodoReporte"]
+                # Rep = session["periodoReporte"]
+                print(Rep)
+                #Rep = "2014-20S"
+                
+                
+                #PATH_PRINCIPAL_2 = "src\data\static_data\sede"
+                PATH_PRINCIPAL_2 = my_config_constants["path_principal_2"]
+                name_activos2 = os.path.join('FACULTADES_MAIN_2022_2S.xlsx')
+                name_bloq_admin = os.path.join('FACULTADES_BLOQUEADOS_ADMINISTRATIVAS.xlsx')
+                name_bloq_academ = os.path.join('FACULTADES_BLOQUEADOS_ACADEMICAS.xlsx')
+                
+                    # from static data:
+                name_planes = os.path.join('Planes.xlsx')
+                
+                col_out_main, col_out_hoja_2, col_out_hoja_3, df_planes = inicializador_cols(PATH_PRINCIPAL_2, name_activos2, name_bloq_admin, name_bloq_academ, name_planes)
+                
+                
+                
+                name_activos = os.path.join('RE_ACT_PER_TABLA_DE_DATOS.xlsx')
+                name_pav_pap = None
+                name_mat_per = None
+                # name_est_bloq = os.path.join('upload','2024-1S_BLQ_Causas_Administrativas_RE_EST_BLQ_PER_TABLA DE DATOS_Actualizacion.xlsx')
+                name_est_bloq = os.path.join('BLQ_Causas_Administrativas_RE_EST_BLQ_PER_TABLA_DE_DATOS.xlsx')
+                name_matr_ant = None
+                
+                df_activos, df_pav_pap, df_mat_per, df_est_bloq, df_matriculados_ant = load_data_sede(name_activos, name_pav_pap, name_mat_per, name_est_bloq, name_matr_ant)
+                
+                
+                df_pav_pap = None
+                df_mat_per = None
+                
+                
+                df_planes, df_activos_discap, df_pav_pap_v2, df_mat_per_v2 = preprocessing_sede(df_planes, df_activos, df_pav_pap, df_mat_per)
+                
+                df_bloq_main_save  = main_bloq_admin(df_est_bloq, df_activos, df_planes, col_out_hoja_2, periodo = Rep)
+                
+                
+                # concatenar:
+                df_final = pd.concat([df_historico, df_bloq_main_save])
+                
+                cols_gsh = ["BLOQUEO",
+                        "FACULTAD",
+                        "PLAN",
+                        "NIVEL",
+                        "AVANCE_CARRERA",
+                        "SEXO",
+                        "EDAD",
+                        "NUMERO_MATRICULAS",
+                        "PAPA",
+                        "PBM",
+                        "ESTRATO",
+                        "DEPTO_RESIDENCIA",
+                        "DISCAPACIDAD",
+                        "hashed_ID",
+                        "NIVEL_2",
+                        "AVANCE_HISTOGRAMA",
+                        "PERIODO_REPORTE",
+                        "SUBACCESO",
+                        "DOCUMENTO",
+                        "NOMBRES",
+                        "APELLIDO1",
+                        "EMAIL",
+                        "ID"]
+                    
+                df_bloq_administrativas_def = check_repeat_main(df_final, cols_gsh)
+                
+                # save reporte:
+                path_save = my_config_constants["path_save_sede"]
+                df_bloq_administrativas_def.to_excel(path_save + session['download_file'][0] , index=False)
+                
+                print("==================== SALIENDO DE CHECK REPEAT =============================")
+                print(df_bloq_administrativas_def.info())
+                    
+                
+                # Formatos:
+                df_bloq_administrativas_def['PAPA'] = df_bloq_administrativas_def['PAPA'].apply(lambda x: f"{x}".replace('.', ',') if pd.notnull(x) else "")
+                    
+                # Cast df:
+                df_bloq_administrativas_def = format_column(df_bloq_administrativas_def, "PBM", "to_int")
+                df_bloq_administrativas_def = format_column(df_bloq_administrativas_def, "NUMERO_MATRICULAS", "to_int")
+                
+                df_bloq_administrativas_def = format_column(df_bloq_administrativas_def, "PAPA", "to_float")
+                df_bloq_administrativas_def = format_column(df_bloq_administrativas_def, "AVANCE_CARRERA", "to_float")
+                    
+                MODEL_SERVICIOS.write_google_sheet(df_bloq_administrativas_def,
+                                                    my_config_constants['type_gsheet_write_sede'],
+                                                    my_config_constants['name_file_gsheet_sede'],
+                                                    session['table'])     
+                    
+                # Seleccionar solo reporte actual luego de quitar repetidos:
+                df_bloq_administrativas_def = df_bloq_administrativas_def[df_bloq_administrativas_def["PERIODO_REPORTE"] == Rep]
+                
+                # Actualizar excel: 
+                    
+                """
+                #NOTA: hace falta identificar si el ID de reporte y ID de usuario hacen problemas....
+                #por ahora todo bien y hay que atacar excel:
+                """
+                
+                print("==================== Antes de escribir DE CHECK REPEAT =============================")
+                print(df_bloq_administrativas_def.info())
+                
+                
+                
+                flash('Cruce Realizado.')
+                # Actualizar fecha
+                now = datetime.now()
+                date_time = now.strftime("%m/%d/%Y, %H:%M:%S") # PONER HORA
+                id = session['id']
+                msj = ModelUser.update_date(db, str(id), str(date_time))
+                # SQL
+                # FECHA
+                now = datetime.now()
+                date_time = now.strftime("%m-%d-%Y, %H:%M:%S") # PONER HORA
+                df_bloq_administrativas_def["DATE_UPDATE"] = date_time
+                df_bloq_administrativas_def["USER"] = session['username']
+                # QUITAR UNAMED
+                msj = ModelUser.upload_df(db, df_bloq_administrativas_def, session['table'])
+                
+                return json.dumps({'status':'OK'})
+        
+            # Bloqueados causas academicas:
+            if session['report'] == 103:
+                
+                df_historico = ModelUser.get_all_table(db, session["table"], report='delete_sede')
+                
+                
+                print('HISTORICO ==================================================')
+                print(len(df_historico))
+                
+                Rep = session["periodoReporte"]
+                # Rep = session["periodoReporte"]
+                print(Rep)
+                #Rep = "2014-20S"
+                
+                
+                #PATH_PRINCIPAL_2 = "src\data\static_data\sede"
+                PATH_PRINCIPAL_2 = my_config_constants["path_principal_2"]
+                name_activos2 = os.path.join('FACULTADES_MAIN_2022_2S.xlsx')
+                name_bloq_admin = os.path.join('FACULTADES_BLOQUEADOS_ADMINISTRATIVAS.xlsx')
+                name_bloq_academ = os.path.join('FACULTADES_BLOQUEADOS_ACADEMICAS.xlsx')
+                
+                    # from static data:
+                name_planes = os.path.join('Planes.xlsx')
+                
+                col_out_main, col_out_hoja_2, col_out_hoja_3, df_planes = inicializador_cols(PATH_PRINCIPAL_2, name_activos2, name_bloq_admin, name_bloq_academ, name_planes)
+                
+                
+                
+                name_activos = os.path.join('RE_ACT_PER_TABLA_DE_DATOS.xlsx')
+                name_pav_pap =  os.path.join('RE_MAT_PAV_PAP_TABLA_DE_DATOS.xlsx')
+                name_mat_per = os.path.join('RE_MAT_PER_TABLA_DE_DATOS.xlsx')
+                name_est_bloq = None
+                name_matr_ant = os.path.join('BLQ_Causas_Academicas_RE_EST_BLQ_PER_TABLA_DE_DATOS.xlsx')
+                
+                
+                
+                # HAY QUE PONER COMO FILE MATRICULADOS POR PERIODO ojo!
+                
+                df_activos, df_pav_pap, df_mat_per, df_est_bloq, df_matriculados_ant = load_data_sede(name_activos, name_pav_pap, name_mat_per, name_est_bloq, name_matr_ant)
+                
+                
+                
+                df_planes, df_activos_discap, df_pav_pap_v2, df_mat_per_v2 = preprocessing_sede(df_planes, df_activos, df_pav_pap, df_mat_per)
+                
+                #df_bloq_main_save  = main_bloq_admin(df_est_bloq, df_activos, df_planes, col_out_hoja_2, periodo = Rep)
+                
+                print("===================SALIDA DE MATRICULADOS DE <preprocessing_sede> : ")
+                print(df_mat_per_v2.info())
+                
+                
+                df_bloq_acadm_main_save  = main_bloq_academ(df_pav_pap, df_matriculados_ant, df_planes, df_activos_discap, df_mat_per_v2, col_out_hoja_3, periodo = Rep)
+                
+                
+                # concatenar:
+                df_final = pd.concat([df_historico, df_bloq_acadm_main_save])
+                
+                cols_gsh =  [
+                        "FACULTAD",
+                        "PLAN",
+                        "TIPO_NIVEL",
+                        "SEXO",
+                        "ESTRATO",
+                        "DEPTO_PROCEDENCIA",
+                        "NUM_MATRICULAS",
+                        "PAPA",
+                        "AVANCE_CARRERA",
+                        "hashed_ID",
+                        "NIVEL_2",
+                        "DISCAPACIDAD",
+                        "CAUSA_BLOQUEO",
+                        "EDAD",
+                        "PBM",
+                        "AVANCE_HISTOGRAMA",
+                        "PERIODO_REPORTE",
+                        "SUBACCESO",
+                        "DOCUMENTO",
+                        "NOMBRES",
+                        "APELLIDO1",
+                        "EMAIL",
+                        "ID"
+                    ]
+                    
+                df_bloq_academicas_def = check_repeat_main(df_final, cols_gsh)
+                
+                print("==================== SALIENDO DE CHECK REPEAT =============================")
+                print(df_bloq_academicas_def.info())
+                
+                # save reporte:
+                path_save = my_config_constants["path_save_sede"]
+                df_bloq_academicas_def.to_excel(path_save + session['download_file'][0] , index=False)
+                
+                # Cast df:
+                df_bloq_academicas_def = format_column(df_bloq_academicas_def, "PBM", "to_int")
+                df_bloq_academicas_def = format_column( df_bloq_academicas_def, "NUMERO_MATRICULAS", "to_int")
+                
+                
+                df_bloq_academicas_def = format_column(df_bloq_academicas_def, "PAPA", "to_float")
+                df_bloq_academicas_def = format_column(df_bloq_academicas_def, "AVANCE_CARRERA", "to_float")
+                
+                MODEL_SERVICIOS.write_google_sheet(df_bloq_academicas_def,
+                                                    my_config_constants['type_gsheet_write_sede'],
+                                                    my_config_constants['name_file_gsheet_sede'],
+                                                    session['table'])
+                    
+                # Seleccionar solo reporte actual luego de quitar repetidos:
+                df_bloq_academicas_def = df_bloq_academicas_def[df_bloq_academicas_def["PERIODO_REPORTE"] == Rep]
+                
+                # Actualizar excel: 
+                    
+                """
+                #NOTA: hace falta identificar si el ID de reporte y ID de usuario hacen problemas....
+                #por ahora todo bien y hay que atacar excel:
+                """
+                
+                # MODEL_SERVICIOS.write_google_sheet(df_matriculados_def, 'servicio', 'REPORTES_DAMA', 'STEM_1')
+                
+                flash('Cruce Realizado.')
+                # Actualizar fecha
+                now = datetime.now()
+                date_time = now.strftime("%m/%d/%Y, %H:%M:%S") # PONER HORA
+                id = session['id']
+                msj = ModelUser.update_date(db, str(id), str(date_time))
+                # SQL
+                # FECHA
+                now = datetime.now()
+                date_time = now.strftime("%m-%d-%Y, %H:%M:%S") # PONER HORA
+                df_bloq_academicas_def["DATE_UPDATE"] = date_time
+                df_bloq_academicas_def["USER"] = session['username']
+                # QUITAR UNAMED
+                msj = ModelUser.upload_df(db, df_bloq_academicas_def, session['table'])
+                
+                
+                
+                return json.dumps({'status':'OK'})
+            
+        except Exception as e:
+            # Obtener el resumen del error
+            print("____________________ERROR______________________________")
+            print(traceback.format_exc().splitlines())
+            error_message = traceback.format_exc().splitlines()[-1]
+            flash(f"Hubo un error al realizar el reporte: {error_message}")
+            return json.dumps({'status':'OK'})
+       
+        
                     
         
         # taller intracatedra:
@@ -1966,271 +2226,7 @@ def generar():
             
 
         
-        # Bloqueados causas administrativas:
-        if session['report'] == 102:
-            
-            df_historico = ModelUser.get_all_table(db, session["table"], report='delete_sede')
-               
-               
-            print('HISTORICO ==================================================')
-            print(len(df_historico))
-            
-            Rep = session["periodoReporte"]
-            # Rep = session["periodoReporte"]
-            print(Rep)
-            #Rep = "2014-20S"
-            
-            
-            #PATH_PRINCIPAL_2 = "src\data\static_data\sede"
-            PATH_PRINCIPAL_2 = os.path.join('/home/Analisis/basic-flask-app/src/data','static_data', 'sede')
-            name_activos2 = os.path.join('FACULTADES_MAIN_2022_2S.xlsx')
-            name_bloq_admin = os.path.join('FACULTADES_BLOQUEADOS_ADMINISTRATIVAS.xlsx')
-            name_bloq_academ = os.path.join('FACULTADES_BLOQUEADOS_ACADEMICAS.xlsx')
-            
-                # from static data:
-            name_planes = os.path.join('Planes.xlsx')
-            
-            col_out_main, col_out_hoja_2, col_out_hoja_3, df_planes = inicializador_cols(PATH_PRINCIPAL_2, name_activos2, name_bloq_admin, name_bloq_academ, name_planes)
-            
-            
-            
-            name_activos = os.path.join('RE_ACT_PER_TABLA_DE_DATOS.xlsx')
-            name_pav_pap = None
-            name_mat_per = None
-            # name_est_bloq = os.path.join('upload','2024-1S_BLQ_Causas_Administrativas_RE_EST_BLQ_PER_TABLA DE DATOS_Actualizacion.xlsx')
-            name_est_bloq = os.path.join('BLQ_Causas_Administrativas_RE_EST_BLQ_PER_TABLA_DE_DATOS.xlsx')
-            name_matr_ant = None
-            
-            df_activos, df_pav_pap, df_mat_per, df_est_bloq, df_matriculados_ant = load_data_sede(name_activos, name_pav_pap, name_mat_per, name_est_bloq, name_matr_ant)
-            
-            
-            df_pav_pap = None
-            df_mat_per = None
-             
-            
-            df_planes, df_activos_discap, df_pav_pap_v2, df_mat_per_v2 = preprocessing_sede(df_planes, df_activos, df_pav_pap, df_mat_per)
-            
-            df_bloq_main_save  = main_bloq_admin(df_est_bloq, df_activos, df_planes, col_out_hoja_2, periodo = Rep)
-            
-            
-            # concatenar:
-            df_final = pd.concat([df_historico, df_bloq_main_save])
-            
-            cols_gsh = ["BLOQUEO",
-                    "FACULTAD",
-                    "PLAN",
-                    "NIVEL",
-                    "AVANCE_CARRERA",
-                    "SEXO",
-                    "EDAD",
-                    "NUMERO_MATRICULAS",
-                    "PAPA",
-                    "PBM",
-                    "ESTRATO",
-                    "DEPTO_RESIDENCIA",
-                    "DISCAPACIDAD",
-                    "hashed_ID",
-                    "NIVEL_2",
-                    "AVANCE_HISTOGRAMA",
-                    "PERIODO_REPORTE",
-                    "SUBACCESO",
-                    "DOCUMENTO",
-                    "NOMBRES",
-                    "APELLIDO1",
-                    "EMAIL",
-                    "ID"]
-                
-            df_bloq_administrativas_def = check_repeat_main(df_final, cols_gsh)
-            
-            # save reporte:
-            path_save = "/home/Analisis/basic-flask-app/src/data/sede/generados/"
-            df_bloq_administrativas_def.to_excel(path_save + session['download_file'][0] , index=False)
-            
-            print("==================== SALIENDO DE CHECK REPEAT =============================")
-            print(df_bloq_administrativas_def.info())
-                
-            
-            # Formatos:
-            df_bloq_administrativas_def['PAPA'] = df_bloq_administrativas_def['PAPA'].apply(lambda x: f"{x}".replace('.', ',') if pd.notnull(x) else "")
-                
-            # Cast df:
-            df_bloq_administrativas_def = format_column(df_bloq_administrativas_def, "PBM", "to_int")
-            df_bloq_administrativas_def = format_column(df_bloq_administrativas_def, "NUMERO_MATRICULAS", "to_int")
-            
-            df_bloq_administrativas_def = format_column(df_bloq_administrativas_def, "PAPA", "to_float")
-            df_bloq_administrativas_def = format_column(df_bloq_administrativas_def, "AVANCE_CARRERA", "to_float")
-                
-            MODEL_SERVICIOS.write_google_sheet(df_bloq_administrativas_def,
-                                                my_config_constants['type_gsheet_write_sede'],
-                                                my_config_constants['name_file_gsheet_sede'],
-                                                session['table'])     
-                
-            # Seleccionar solo reporte actual luego de quitar repetidos:
-            df_bloq_administrativas_def = df_bloq_administrativas_def[df_bloq_administrativas_def["PERIODO_REPORTE"] == Rep]
-            
-            # Actualizar excel: 
-                   
-            """
-            #NOTA: hace falta identificar si el ID de reporte y ID de usuario hacen problemas....
-            #por ahora todo bien y hay que atacar excel:
-            """
-            
-            print("==================== Antes de escribir DE CHECK REPEAT =============================")
-            print(df_bloq_administrativas_def.info())
-            
-            
-            
-            flash('Cruce Realizado.')
-            # Actualizar fecha
-            now = datetime.now()
-            date_time = now.strftime("%m/%d/%Y, %H:%M:%S") # PONER HORA
-            id = session['id']
-            msj = ModelUser.update_date(db, str(id), str(date_time))
-            # SQL
-            # FECHA
-            now = datetime.now()
-            date_time = now.strftime("%m-%d-%Y, %H:%M:%S") # PONER HORA
-            df_bloq_administrativas_def["DATE_UPDATE"] = date_time
-            df_bloq_administrativas_def["USER"] = session['username']
-            # QUITAR UNAMED
-            msj = ModelUser.upload_df(db, df_bloq_administrativas_def, session['table'])
-            
-            return json.dumps({'status':'OK'})
         
-        # Bloqueados causas academicas:
-        if session['report'] == 103:
-            
-            df_historico = ModelUser.get_all_table(db, session["table"], report='delete_sede')
-               
-               
-            print('HISTORICO ==================================================')
-            print(len(df_historico))
-            
-            Rep = session["periodoReporte"]
-            # Rep = session["periodoReporte"]
-            print(Rep)
-            #Rep = "2014-20S"
-            
-            
-            #PATH_PRINCIPAL_2 = "src\data\static_data\sede"
-            PATH_PRINCIPAL_2 = os.path.join('/home/Analisis/basic-flask-app/src/data','static_data', 'sede')
-            name_activos2 = os.path.join('FACULTADES_MAIN_2022_2S.xlsx')
-            name_bloq_admin = os.path.join('FACULTADES_BLOQUEADOS_ADMINISTRATIVAS.xlsx')
-            name_bloq_academ = os.path.join('FACULTADES_BLOQUEADOS_ACADEMICAS.xlsx')
-            
-                # from static data:
-            name_planes = os.path.join('Planes.xlsx')
-            
-            col_out_main, col_out_hoja_2, col_out_hoja_3, df_planes = inicializador_cols(PATH_PRINCIPAL_2, name_activos2, name_bloq_admin, name_bloq_academ, name_planes)
-            
-            
-            
-            name_activos = os.path.join('RE_ACT_PER_TABLA_DE_DATOS.xlsx')
-            name_pav_pap =  os.path.join('RE_MAT_PAV_PAP_TABLA_DE_DATOS.xlsx')
-            name_mat_per = os.path.join('RE_MAT_PER_TABLA_DE_DATOS.xlsx')
-            name_est_bloq = None
-            name_matr_ant = os.path.join('BLQ_Causas_Academicas_RE_EST_BLQ_PER_TABLA_DE_DATOS.xlsx')
-            
-            
-            
-            # HAY QUE PONER COMO FILE MATRICULADOS POR PERIODO ojo!
-            
-            df_activos, df_pav_pap, df_mat_per, df_est_bloq, df_matriculados_ant = load_data_sede(name_activos, name_pav_pap, name_mat_per, name_est_bloq, name_matr_ant)
-            
-             
-            
-            df_planes, df_activos_discap, df_pav_pap_v2, df_mat_per_v2 = preprocessing_sede(df_planes, df_activos, df_pav_pap, df_mat_per)
-            
-            #df_bloq_main_save  = main_bloq_admin(df_est_bloq, df_activos, df_planes, col_out_hoja_2, periodo = Rep)
-            
-            print("===================SALIDA DE MATRICULADOS DE <preprocessing_sede> : ")
-            print(df_mat_per_v2.info())
-            
-            
-            df_bloq_acadm_main_save  = main_bloq_academ(df_pav_pap, df_matriculados_ant, df_planes, df_activos_discap, df_mat_per_v2, col_out_hoja_3, periodo = Rep)
-            
-            
-            # concatenar:
-            df_final = pd.concat([df_historico, df_bloq_acadm_main_save])
-            
-            cols_gsh =  [
-                    "FACULTAD",
-                    "PLAN",
-                    "TIPO_NIVEL",
-                    "SEXO",
-                    "ESTRATO",
-                    "DEPTO_PROCEDENCIA",
-                    "NUM_MATRICULAS",
-                    "PAPA",
-                    "AVANCE_CARRERA",
-                    "hashed_ID",
-                    "NIVEL_2",
-                    "DISCAPACIDAD",
-                    "CAUSA_BLOQUEO",
-                    "EDAD",
-                    "PBM",
-                    "AVANCE_HISTOGRAMA",
-                    "PERIODO_REPORTE",
-                    "SUBACCESO",
-                    "DOCUMENTO",
-                    "NOMBRES",
-                    "APELLIDO1",
-                    "EMAIL",
-                    "ID"
-                ]
-                
-            df_bloq_academicas_def = check_repeat_main(df_final, cols_gsh)
-            
-            print("==================== SALIENDO DE CHECK REPEAT =============================")
-            print(df_bloq_academicas_def.info())
-            
-            # save reporte:
-            path_save = "/home/Analisis/basic-flask-app/src/data/sede/generados/"
-            df_bloq_academicas_def.to_excel(path_save + session['download_file'][0] , index=False)
-            
-            # Cast df:
-            df_bloq_academicas_def = format_column(df_bloq_academicas_def, "PBM", "to_int")
-            df_bloq_academicas_def = format_column( df_bloq_academicas_def, "NUMERO_MATRICULAS", "to_int")
-            
-            
-            df_bloq_academicas_def = format_column(df_bloq_academicas_def, "PAPA", "to_float")
-            df_bloq_academicas_def = format_column(df_bloq_academicas_def, "AVANCE_CARRERA", "to_float")
-            
-            MODEL_SERVICIOS.write_google_sheet(df_bloq_academicas_def,
-                                                my_config_constants['type_gsheet_write_sede'],
-                                                my_config_constants['name_file_gsheet_sede'],
-                                                session['table'])
-                
-            # Seleccionar solo reporte actual luego de quitar repetidos:
-            df_bloq_academicas_def = df_bloq_academicas_def[df_bloq_academicas_def["PERIODO_REPORTE"] == Rep]
-            
-            # Actualizar excel: 
-                   
-            """
-            #NOTA: hace falta identificar si el ID de reporte y ID de usuario hacen problemas....
-            #por ahora todo bien y hay que atacar excel:
-            """
-            
-            # MODEL_SERVICIOS.write_google_sheet(df_matriculados_def, 'servicio', 'REPORTES_DAMA', 'STEM_1')
-            
-            flash('Cruce Realizado.')
-            # Actualizar fecha
-            now = datetime.now()
-            date_time = now.strftime("%m/%d/%Y, %H:%M:%S") # PONER HORA
-            id = session['id']
-            msj = ModelUser.update_date(db, str(id), str(date_time))
-            # SQL
-            # FECHA
-            now = datetime.now()
-            date_time = now.strftime("%m-%d-%Y, %H:%M:%S") # PONER HORA
-            df_bloq_academicas_def["DATE_UPDATE"] = date_time
-            df_bloq_academicas_def["USER"] = session['username']
-            # QUITAR UNAMED
-            msj = ModelUser.upload_df(db, df_bloq_academicas_def, session['table'])
-            
-            
-            
-            return json.dumps({'status':'OK'})
     
 
 # DESCARGAR:
@@ -2249,11 +2245,10 @@ def descargar(filename):
 @app.route('/delete/<reg>/<my_user>/<date>', methods=['POST'])
 def delete(reg, my_user, date):
     try:
-    # Caso SEDE:
-        print("ENTRE A REPORTE:")
-        google_sheet_file = my_config_constants['name_file_gsheet_sede']
-        type_service = my_config_constants['type_gsheet_write_sede']
+        # Boprrar filas:
+        ModelUser.delete(db, session['table'], my_user, date)
         
+        # Caso Sede
         if session['report'] in [101, 102, 103]:
             # Caso SEDE:
             print("ENTRE A REPORTE:")
@@ -2382,7 +2377,7 @@ def down(reg, my_user, date):
     print(len(df))
     # src\data
     # src\data\my_reporte.xlsx
-    path = os.path.join('/home/Analisis/basic-flask-app/src/data',"my_reporte.xlsx")
+    path = my_config_constants["path_send_file_1"]
     df.to_excel(path , index=False)
     return send_file(path , as_attachment=True)
 
@@ -2391,7 +2386,7 @@ def down(reg, my_user, date):
 def down_date():
     table_service = session['table']
     df_dates = ModelUser.get_distinct_V2(db,  table_service) # poner el nombre de la tabla adecuada
-    path = os.path.join('/home/Analisis/basic-flask-app/src/data',"my_reporte_date.xlsx")
+    path = my_config_constants["path_send_file_2"]
     df_dates.to_excel(path , index=False)
     # actualizar web
     MODEL_SERVICIOS.write_google_sheet(df_dates,

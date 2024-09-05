@@ -26,24 +26,24 @@ def my_worksheet(rol, documento, hoja, row = None, col = None):
     # src/reportes/security/update_google_sheet.py
     if rol == 'servicio':
         if row == None:
-            PATH_PRINCIPAL = os.path.join('home','Analisis','basic-flask-app',"src","reportes","dama-datos.json")
+            PATH_PRINCIPAL = os.path.join("src","reportes","security","dama-datos.json")
             sa = gspread.service_account(filename=PATH_PRINCIPAL)
             sh = sa.open(documento)
             w = sh.worksheet(hoja)
         else:
-            PATH_PRINCIPAL = os.path.join('home','Analisis','basic-flask-app',"src","reportes","dama-datos.json")
+            PATH_PRINCIPAL = os.path.join("src","reportes","security","dama-datos.json")
             sa = gspread.service_account(filename=PATH_PRINCIPAL)
             sh = sa.open(documento)
             w = sh.add_worksheet(title=hoja,rows=f"{row}", cols=f"{col}")
         return w
     elif rol == 'sia':
         if row == None:
-            PATH_PRINCIPAL = os.path.join('home','Analisis','basic-flask-app',"src","reportes","dama-datos.json")
+            PATH_PRINCIPAL = os.path.join("src","reportes","security","dama-datos.json")
             sa = gspread.service_account(filename=PATH_PRINCIPAL)
             sh = sa.open(documento)
             w = sh.worksheet(hoja)
         else:
-            PATH_PRINCIPAL = os.path.join('home','Analisis','basic-flask-app',"src","reportes","dama-datos.json")
+            PATH_PRINCIPAL = os.path.join("src","reportes","security","dama-datos.json")
             sa = gspread.service_account(filename=PATH_PRINCIPAL)
             sh = sa.open(documento)
             w = sh.add_worksheet(title=hoja,rows=f"{row}", cols=f"{col}")
