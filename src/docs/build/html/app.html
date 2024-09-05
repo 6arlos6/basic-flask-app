@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>app module &mdash; Dama_project 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="config module" href="config.html" />
+    <link rel="prev" title="src" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Dama_project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">app module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#app.data_mun"><code class="docutils literal notranslate"><span class="pre">data_mun()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.delete"><code class="docutils literal notranslate"><span class="pre">delete()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.descargar"><code class="docutils literal notranslate"><span class="pre">descargar()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.down"><code class="docutils literal notranslate"><span class="pre">down()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.generar"><code class="docutils literal notranslate"><span class="pre">generar()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.get_data"><code class="docutils literal notranslate"><span class="pre">get_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_acompanamiento"><code class="docutils literal notranslate"><span class="pre">home_acompanamiento()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_actividades_voluntarias"><code class="docutils literal notranslate"><span class="pre">home_actividades_voluntarias()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_admin"><code class="docutils literal notranslate"><span class="pre">home_admin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_api"><code class="docutils literal notranslate"><span class="pre">home_api()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_ayuda"><code class="docutils literal notranslate"><span class="pre">home_ayuda()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_catedra"><code class="docutils literal notranslate"><span class="pre">home_catedra()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_espa"><code class="docutils literal notranslate"><span class="pre">home_espa()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_estadisticas"><code class="docutils literal notranslate"><span class="pre">home_estadisticas()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_fac_admin"><code class="docutils literal notranslate"><span class="pre">home_fac_admin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_fac_admin_reporte"><code class="docutils literal notranslate"><span class="pre">home_fac_admin_reporte()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_fac_ciencias"><code class="docutils literal notranslate"><span class="pre">home_fac_ciencias()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_fac_ciencias_reporte"><code class="docutils literal notranslate"><span class="pre">home_fac_ciencias_reporte()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_fac_ing_arq"><code class="docutils literal notranslate"><span class="pre">home_fac_ing_arq()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_fac_ing_arq_reporte"><code class="docutils literal notranslate"><span class="pre">home_fac_ing_arq_reporte()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_focad"><code class="docutils literal notranslate"><span class="pre">home_focad()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_matriculados"><code class="docutils literal notranslate"><span class="pre">home_matriculados()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_proyectos_y_tesis"><code class="docutils literal notranslate"><span class="pre">home_proyectos_y_tesis()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_psl"><code class="docutils literal notranslate"><span class="pre">home_psl()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_reportes_generales"><code class="docutils literal notranslate"><span class="pre">home_reportes_generales()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_sede"><code class="docutils literal notranslate"><span class="pre">home_sede()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_sede_reporte"><code class="docutils literal notranslate"><span class="pre">home_sede_reporte()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_sia"><code class="docutils literal notranslate"><span class="pre">home_sia()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_stem"><code class="docutils literal notranslate"><span class="pre">home_stem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_stem_informe_1"><code class="docutils literal notranslate"><span class="pre">home_stem_informe_1()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_taller_intracatedra"><code class="docutils literal notranslate"><span class="pre">home_taller_intracatedra()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_tramites_y_solicitudes"><code class="docutils literal notranslate"><span class="pre">home_tramites_y_solicitudes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_tutores"><code class="docutils literal notranslate"><span class="pre">home_tutores()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_tutorias_y_geas"><code class="docutils literal notranslate"><span class="pre">home_tutorias_y_geas()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_unal_lee"><code class="docutils literal notranslate"><span class="pre">home_unal_lee()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_unal_region"><code class="docutils literal notranslate"><span class="pre">home_unal_region()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_unal_region_analitica"><code class="docutils literal notranslate"><span class="pre">home_unal_region_analitica()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.home_utp"><code class="docutils literal notranslate"><span class="pre">home_utp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.index"><code class="docutils literal notranslate"><span class="pre">index()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.load_user"><code class="docutils literal notranslate"><span class="pre">load_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.login"><code class="docutils literal notranslate"><span class="pre">login()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.logout"><code class="docutils literal notranslate"><span class="pre">logout()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.status_401"><code class="docutils literal notranslate"><span class="pre">status_401()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.status_404"><code class="docutils literal notranslate"><span class="pre">status_404()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.status_405"><code class="docutils literal notranslate"><span class="pre">status_405()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#app.upload"><code class="docutils literal notranslate"><span class="pre">upload()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html">models package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reportes.html">reportes package</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Dama_project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">src</a></li>
+      <li class="breadcrumb-item active">app module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/app.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-app">
+<span id="app-module"></span><h1>app module<a class="headerlink" href="#module-app" title="Permalink to this heading"></a></h1>
+<p><strong>Writing docstrings</strong></p>
+<p>There are several different docstring formats which one can use in order to enable Sphinx’s
+autodoc extension to automatically generate documentation. For this tutorial we will use
+the Sphinx format, since, as the name suggests, it is the standard format used with Sphinx.
+Other formats include Google (see here) and NumPy (see here), but they require the use of 
+Sphinx’s napoleon extension, which is beyond the scope of this tutorial.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.data_mun">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">data_mun</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#data_mun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.data_mun" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.delete">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.delete" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.descargar">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">descargar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#descargar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.descargar" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.down">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">down</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">my_user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#down"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.down" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.generar">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">generar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#generar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.generar" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.get_data">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.get_data" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_acompanamiento">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_acompanamiento</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_acompanamiento"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_acompanamiento" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_actividades_voluntarias">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_actividades_voluntarias</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_actividades_voluntarias"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_actividades_voluntarias" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_admin">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_admin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_admin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_admin" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_api">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_api</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_api"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_api" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_ayuda">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_ayuda</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_ayuda"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_ayuda" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_catedra">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_catedra</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_catedra"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_catedra" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_espa">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_espa</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_espa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_espa" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_estadisticas">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_estadisticas</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_estadisticas"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_estadisticas" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_fac_admin">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_fac_admin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_fac_admin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_fac_admin" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_fac_admin_reporte">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_fac_admin_reporte</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_fac_admin_reporte"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_fac_admin_reporte" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_fac_ciencias">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_fac_ciencias</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_fac_ciencias"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_fac_ciencias" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_fac_ciencias_reporte">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_fac_ciencias_reporte</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_fac_ciencias_reporte"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_fac_ciencias_reporte" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_fac_ing_arq">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_fac_ing_arq</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_fac_ing_arq"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_fac_ing_arq" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_fac_ing_arq_reporte">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_fac_ing_arq_reporte</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_fac_ing_arq_reporte"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_fac_ing_arq_reporte" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_focad">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_focad</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_focad"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_focad" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_matriculados">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_matriculados</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_matriculados"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_matriculados" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_proyectos_y_tesis">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_proyectos_y_tesis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_proyectos_y_tesis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_proyectos_y_tesis" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_psl">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_psl</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_psl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_psl" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_reportes_generales">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_reportes_generales</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_reportes_generales"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_reportes_generales" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_sede">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_sede</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_sede"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_sede" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_sede_reporte">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_sede_reporte</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_sede_reporte"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_sede_reporte" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_sia">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_sia</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_sia"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_sia" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_stem">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_stem</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_stem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_stem" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_stem_informe_1">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_stem_informe_1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_stem_informe_1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_stem_informe_1" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_taller_intracatedra">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_taller_intracatedra</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_taller_intracatedra"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_taller_intracatedra" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_tramites_y_solicitudes">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_tramites_y_solicitudes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_tramites_y_solicitudes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_tramites_y_solicitudes" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_tutores">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_tutores</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_tutores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_tutores" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_tutorias_y_geas">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_tutorias_y_geas</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_tutorias_y_geas"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_tutorias_y_geas" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_unal_lee">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_unal_lee</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_unal_lee"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_unal_lee" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_unal_region">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_unal_region</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_unal_region"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_unal_region" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_unal_region_analitica">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_unal_region_analitica</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_unal_region_analitica"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_unal_region_analitica" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.home_utp">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">home_utp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#home_utp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.home_utp" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.index">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.index" title="Permalink to this definition"></a></dt>
+<dd><p>Esta funcion re dirige a la pagina de login.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – No recibe funcion.</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Redireccion a la pagina de loguin.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.load_user">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">load_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#load_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.load_user" title="Permalink to this definition"></a></dt>
+<dd><p>Esta funcion identifica mediante el id en la base de datos si el usuario esta logueado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>int</em>) – id del usuario, defaults to None</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>usuario por id</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.login">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#login"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.login" title="Permalink to this definition"></a></dt>
+<dd><p>Esta funcion permite renderizar el html de login, y busca al usuario en la base de datos, controla
+en caso de que no este registrado o que la contraseña sea incorrecta, en caso de que los datos esten correctos,
+este redirige hacia la pagina principal del usuario asignandole un rol que viene por defecto en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – No recibe funcion.</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Redireccion a la pagina de loguin.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.logout">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">logout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#logout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.logout" title="Permalink to this definition"></a></dt>
+<dd><p>Esta funcion permite hacer el logout a cualquier usuario, despues redirije a la pagina principal de login.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – No recibe funcion.</p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Redireccion a la pagina de loguin.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.status_401">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">status_401</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#status_401"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.status_401" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.status_404">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">status_404</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#status_404"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.status_404" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.status_405">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">status_405</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#status_405"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.status_405" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.upload">
+<span class="sig-prename descclassname"><span class="pre">app.</span></span><span class="sig-name descname"><span class="pre">upload</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app.html#upload"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.upload" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="src" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="config.html" class="btn btn-neutral float-right" title="config module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Carlos Riascos.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

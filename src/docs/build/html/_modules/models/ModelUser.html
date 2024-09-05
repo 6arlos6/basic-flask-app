@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>models.ModelUser &mdash; Dama_project 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Dama_project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">src</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Dama_project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">models.ModelUser</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for models.ModelUser</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">.entities.User</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">werkzeug.security</span> <span class="kn">import</span> <span class="n">generate_password_hash</span>
+<span class="c1">#import unidecode</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">unidecode</span> <span class="kn">import</span> <span class="n">unidecode</span>
+
+<div class="viewcode-block" id="ModelUser"><a class="viewcode-back" href="../../models.html#models.ModelUser.ModelUser">[docs]</a><span class="k">class</span> <span class="nc">ModelUser</span><span class="p">():</span>
+
+<div class="viewcode-block" id="ModelUser.login"><a class="viewcode-back" href="../../models.html#models.ModelUser.ModelUser.login">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;SELECT id, username, password, fullname, rol, fecha_modificacion</span>
+<span class="s2">                     FROM user_rol</span>
+<span class="s2">                     WHERE username = &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">row</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">User</span><span class="o">.</span><span class="n">check_password</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">user</span><span class="o">.</span><span class="n">password</span><span class="p">),</span> <span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+                <span class="k">return</span> <span class="n">user</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ModelUser.get_by_id"><a class="viewcode-back" href="../../models.html#models.ModelUser.ModelUser.get_by_id">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT id, username, fullname, rol, fecha_modificacion FROM user_rol WHERE id = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">row</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">User</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span></div>
+    
+    <span class="c1"># Clase de modificacion de fecha:</span>
+<div class="viewcode-block" id="ModelUser.update_date"><a class="viewcode-back" href="../../models.html#models.ModelUser.ModelUser.update_date">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">update_date</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">date</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="c1">#sql = &quot;SELECT id, username, fullname, rol FROM user_rol WHERE id = {}&quot;.format(id)</span>
+            <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;UPDATE user_rol SET fecha_modificacion = &#39;</span><span class="si">{}</span><span class="s2">&#39; WHERE ID = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SQLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">return</span> <span class="s1">&#39;exito&#39;</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span></div>
+
+    <span class="c1"># Get date:</span>
+<div class="viewcode-block" id="ModelUser.get_date_modf"><a class="viewcode-back" href="../../models.html#models.ModelUser.ModelUser.get_date_modf">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_date_modf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT fecha_modificacion FROM user_rol WHERE id = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">row</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span></div>
+    <span class="c1"># API:</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    @classmethod</span>
+<span class="sd">    def upload_df(self, db, df, table):</span>
+<span class="sd">        try:</span>
+<span class="sd">            # dataframe:</span>
+<span class="sd">            cols = list(df.columns)</span>
+<span class="sd">            n_cols = len(cols)</span>
+<span class="sd">            # coneccion:</span>
+<span class="sd">            cursor = db.connection.cursor()</span>
+<span class="sd">            #query_RESET = f&#39;ALTER TABLE {table} AUTO_INCREMENT = 1&#39;</span>
+<span class="sd">            query = f&#39;INSERT INTO {table}\n&#39;</span>
+<span class="sd">            val_list = [&quot;%s&quot; for i in range(n_cols-1)]</span>
+<span class="sd">            val_list_str = &quot;, &quot;.join(val_list)</span>
+<span class="sd">            query += &#39;VALUES(&#39; + val_list_str + &#39;)\n&#39;</span>
+<span class="sd">            print(&quot;===========================================&quot;)</span>
+<span class="sd">            print(query)</span>
+<span class="sd">            # Delete duplicates:</span>
+<span class="sd">            sql_del = f&quot;DELETE t1 FROM {table} t1\n&quot;</span>
+<span class="sd">            sql_del += f&quot;INNER JOIN {table} t2\n&quot; </span>
+<span class="sd">            sql_del += &quot;WHERE\n&quot;</span>
+<span class="sd">            #sql_del += f&quot;   t1.ID &lt; t2.ID AND\n&quot;</span>
+<span class="sd">            for i in range(len(cols)-1):</span>
+<span class="sd">                sql_del += f&quot;   t1.{cols[i]} = t2.{cols[i]} AND\n&quot;</span>
+<span class="sd">            sql_del += f&quot;   t1.{cols[i+1]} = t2.{cols[i+1]}&quot;</span>
+<span class="sd">            </span>
+<span class="sd">            # dummy_non_duplicate_table</span>
+<span class="sd">            #query = &#39;INSERT ignore into db1 VALUES(%s, %s, %s, %s)&#39;</span>
+<span class="sd">            my_data = []</span>
+<span class="sd">            # formatted_date = now.strftime(&#39;%Y-%m-%d %H:%M:%S&#39;)</span>
+<span class="sd">            for i_row in range(len(df)):</span>
+<span class="sd">                row = list(df.iloc[i_row,:])</span>
+<span class="sd">                row = [str(e) for e in row]</span>
+<span class="sd">                row = tuple(row)</span>
+<span class="sd">                #print(row)</span>
+<span class="sd">                my_data.append(row)</span>
+<span class="sd">            #print(my_data)</span>
+<span class="sd">            #cursor.execute(query_RESET)</span>
+<span class="sd">            cursor.executemany(query, my_data)</span>
+<span class="sd">            cursor.execute(sql_del)</span>
+<span class="sd">            db.connection.commit()</span>
+<span class="sd">            return &#39;exito&#39;</span>
+<span class="sd">        except Exception as ex:</span>
+<span class="sd">            raise Exception(ex)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+    
+<div class="viewcode-block" id="ModelUser.upload_df"><a class="viewcode-back" href="../../models.html#models.ModelUser.ModelUser.upload_df">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">upload_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
+        <span class="c1">#try:</span>
+            <span class="c1"># dataframe:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=============== COLUMNA  ANTES ==============&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="c1">#cols_tupl = set([col.replace(&#39;-&#39;,&#39;_&#39;) for col in cols]) # OJO</span>
+        <span class="n">cols_tupl</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="s1">&#39;_&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">]</span>
+        <span class="n">cols_tupl</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;_&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols_tupl</span><span class="p">]</span>
+        <span class="n">cols_tupl</span> <span class="o">=</span> <span class="p">[</span><span class="n">unidecode</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols_tupl</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=============== COLUMNA  Despues de poner _ ==============&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">cols_tupl</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">cols_tupl</span><span class="p">)</span>
+        <span class="n">n_cols</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols_tupl</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=============== COLUMNA ==============&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">cols_tupl</span> <span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols_tupl</span><span class="p">))</span>
+        <span class="n">cols_estr_valu</span> <span class="o">=</span> <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cols_tupl</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+        <span class="c1"># coneccion:</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;INSERT INTO </span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">cols_estr_valu</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">val_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_cols</span><span class="p">)]</span>
+        <span class="n">val_list_str</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">val_list</span><span class="p">)</span>
+        <span class="n">query</span> <span class="o">+=</span> <span class="s1">&#39;VALUES(&#39;</span> <span class="o">+</span> <span class="n">val_list_str</span> <span class="o">+</span> <span class="s1">&#39;)</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===========================================&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">my_data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row_i</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cols_tupl</span><span class="p">:</span>
+                <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row_i</span><span class="p">[</span><span class="n">c</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">unidecode</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+            <span class="n">my_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="c1">#query2 = f&quot;DELETE FROM {table}&quot;</span>
+        <span class="n">query3</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;alter table </span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s2"> AUTO_INCREMENT = 1&quot;</span>
+        <span class="c1">#cursor.execute(query2)</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query3</span><span class="p">)</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">my_data</span><span class="p">)</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">return</span> <span class="s1">&#39;exito&#39;</span></div>
+        <span class="c1">#except Exception as ex:</span>
+        <span class="c1">#    raise Exception(ex)</span>
+
+<div class="viewcode-block" id="ModelUser.get_distinct"><a class="viewcode-back" href="../../models.html#models.ModelUser.ModelUser.get_distinct">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_distinct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
+        <span class="c1"># sirve para mostar los valores distintos en funcion de USER y fecha de actualizacion</span>
+        <span class="c1"># en la tabla.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="c1"># ALTER TABLE tablename AUTO_INCREMENT = 1</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;SELECT DISTINCT DATE_UPDATE, USER FROM </span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s1">&#39;</span>  
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">records</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of rows in table: &quot;</span><span class="p">,</span> <span class="n">cursor</span><span class="o">.</span><span class="n">rowcount</span><span class="p">)</span>
+
+            <span class="n">DATE</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">USER</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">ID</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="nb">id</span><span class="p">,</span><span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">records</span><span class="p">):</span>
+                <span class="n">first</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">last_name</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">DATE</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">first</span><span class="p">)</span>
+                <span class="n">USER</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">last_name</span><span class="p">)</span>
+                <span class="n">ID</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">{</span>   
+                    <span class="s1">&#39;ID&#39;</span><span class="p">:</span><span class="n">ID</span><span class="p">,</span>
+                    <span class="s1">&#39;DATE&#39;</span><span class="p">:</span><span class="n">DATE</span><span class="p">,</span>
+                    <span class="s1">&#39;USER&#39;</span><span class="p">:</span><span class="n">USER</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">df</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="ModelUser.get_distinct_V2"><a class="viewcode-back" href="../../models.html#models.ModelUser.ModelUser.get_distinct_V2">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_distinct_V2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
+        <span class="c1"># sirve para mostar los valores distintos en funcion de USER y fecha de actualizacion</span>
+        <span class="c1"># en la tabla.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="c1"># ALTER TABLE tablename AUTO_INCREMENT = 1</span>
+            <span class="c1"># SELECT USER, DATE_UPDATE, COUNT(*) AS cantidad FROM acmp_1 GROUP BY USER, DATE_UPDATE;</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;SELECT USER, DATE_UPDATE, COUNT(*) AS cantidad FROM </span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s1"> GROUP BY USER, DATE_UPDATE&#39;</span>  
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">records</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of rows in table: &quot;</span><span class="p">,</span> <span class="n">cursor</span><span class="o">.</span><span class="n">rowcount</span><span class="p">)</span>
+            <span class="n">USER</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">DATE</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">COUNT</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="nb">id</span><span class="p">,</span><span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">records</span><span class="p">):</span>
+                <span class="n">user</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">date</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">count</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+                <span class="n">USER</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+                <span class="n">DATE</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+                <span class="n">COUNT</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                <span class="p">{</span>   
+                    <span class="s1">&#39;COUNT&#39;</span><span class="p">:</span><span class="n">COUNT</span><span class="p">,</span>
+                    <span class="s1">&#39;USER&#39;</span><span class="p">:</span><span class="n">USER</span><span class="p">,</span>
+                    <span class="s1">&#39;DATE&#39;</span><span class="p">:</span><span class="n">DATE</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">df</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="ModelUser.delete"><a class="viewcode-back" href="../../models.html#models.ModelUser.ModelUser.delete">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">date</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">            DELETE FROM </span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s1"></span>
+<span class="s1">            WHERE USER = &#39;</span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="s1">            AND DATE_UPDATE = &#39;</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="s1">            &#39;&#39;&#39;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span></div>
+    
+    <span class="c1"># downloa_upload:</span>
+<div class="viewcode-block" id="ModelUser.download_upload"><a class="viewcode-back" href="../../models.html#models.ModelUser.ModelUser.download_upload">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">download_upload</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">date</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="c1">#query = f&#39;&#39;&#39;</span>
+            <span class="c1">#DELETE FROM {table}</span>
+            <span class="c1">#WHERE USER = &#39;{user}&#39;</span>
+            <span class="c1">#AND DATE_UPDATE = &#39;{date}&#39;</span>
+            <span class="c1">#&#39;&#39;&#39;</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">            SELECT *</span>
+<span class="s1">            FROM </span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s1"></span>
+<span class="s1">            WHERE USER = &#39;</span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="s1">            AND DATE_UPDATE = &#39;</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="s1">            &#39;&#39;&#39;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">records</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of rows in table: &quot;</span><span class="p">,</span> <span class="n">cursor</span><span class="o">.</span><span class="n">rowcount</span><span class="p">)</span>
+            <span class="n">column_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">desc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">description</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">column_names</span><span class="p">)</span>
+            <span class="n">data_fetch</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">records</span><span class="p">):</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">))]</span>
+                <span class="n">data_fetch</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">column_names</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">)))</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data_fetch</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">column_names</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+            <span class="c1">#db.connection.commit()</span>
+            <span class="k">return</span> <span class="n">df</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ModelUser.get_all_table"><a class="viewcode-back" href="../../models.html#models.ModelUser.ModelUser.get_all_table">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_all_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># conecto:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="c1"># Selecciono todo:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;SELECT * FROM </span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="c1"># Ejecuto:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="c1"># Obtento records:</span>
+            <span class="n">records</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="c1"># Muestro el total de filas:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of rows in table: &quot;</span><span class="p">,</span> <span class="n">cursor</span><span class="o">.</span><span class="n">rowcount</span><span class="p">)</span>
+            <span class="c1"># Numero de columnas:</span>
+            <span class="n">columns</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">description</span>
+            <span class="n">num_fields</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Numero de columnas antes de borrar las ultimas 3: &quot;</span><span class="p">,</span> <span class="n">num_fields</span><span class="p">)</span>
+            <span class="n">cols_to_df</span> <span class="o">=</span> <span class="p">[</span><span class="n">column</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">]</span>
+            <span class="k">del</span> <span class="n">cols_to_df</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;COLUMNAS:&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">cols_to_df</span><span class="p">)</span>
+            <span class="c1"># genero lista vacia para guardar datos:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="c1"># si hay datos...</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">records</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hay datos en historico from SQL database!&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+                    <span class="n">row</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+                    <span class="c1"># borro: ID, USER y DATE_UPDATE:</span>
+                    <span class="k">del</span> <span class="n">row</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
+                    <span class="c1"># guardar en data:</span>
+                    <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Numero de columnas despues de borrar lass 3 ultimas = </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No hay datos en SQL de historico:&quot;</span><span class="p">)</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_fields</span><span class="o">-</span><span class="mi">3</span><span class="p">)]</span>
+    
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cantidad de datos (filas):&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+            <span class="c1"># crear dataframe vacia:</span>
+            <span class="n">pdd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+            <span class="c1"># transponer los datos:</span>
+            <span class="n">tlist</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">data</span><span class="p">))</span>
+            <span class="c1">#print(len(tlist), len(tlist[0]))</span>
+            <span class="c1">#print(tlist)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+            <span class="c1">#print(data)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tlist</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">cols_to_df</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
+            <span class="k">return</span> <span class="n">df</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="ModelAdmin"><a class="viewcode-back" href="../../models.html#models.ModelUser.ModelAdmin">[docs]</a><span class="k">class</span> <span class="nc">ModelAdmin</span><span class="p">():</span>
+<div class="viewcode-block" id="ModelAdmin.create"><a class="viewcode-back" href="../../models.html#models.ModelUser.ModelAdmin.create">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">selft</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">fullname</span><span class="p">,</span> <span class="n">rol</span><span class="p">,</span> <span class="n">date_mod</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">pass_h</span> <span class="o">=</span> <span class="n">generate_password_hash</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+            <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO user_rol (username, password, fullname, rol) </span>
+<span class="s2">                VALUES (&#39;</span><span class="si">{0}</span><span class="s2">&#39;, &#39;</span><span class="si">{1}</span><span class="s2">&#39;, &#39;</span><span class="si">{2}</span><span class="s2">&#39;,&#39;</span><span class="si">{3}</span><span class="s2">&#39;)&quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">pass_h</span><span class="p">,</span> <span class="n">fullname</span><span class="p">,</span> <span class="n">rol</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            <span class="k">return</span> <span class="s1">&#39;exito&#39;</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span> </div>
+<div class="viewcode-block" id="ModelAdmin.hash_pass"><a class="viewcode-back" href="../../models.html#models.ModelUser.ModelAdmin.hash_pass">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">hash_pass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">password_str</span><span class="p">):</span>
+        <span class="n">pass_hash</span> <span class="o">=</span> <span class="n">generate_password_hash</span><span class="p">(</span><span class="n">password_str</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Carlos Riascos.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

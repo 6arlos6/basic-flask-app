@@ -1,0 +1,84 @@
+html,
+
+body {height: 50%;
+background-color: rgb(196, 196, 196)}
+
+/*
+body {
+  height: 50%;
+  background-image: url('baner.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed; 
+  background-size: 100% 100%;
+}
+*/
+
+.test{
+    height:200px;
+    width:200px;
+}
+
+.center {
+  margin: auto;
+    margin-bottom: auto;
+ 
+  border: 1px solid rgba(154, 161, 154, 0.704);
+  padding: 35px;
+  margin-bottom: 10px;
+}
+  
+.mi_div{
+  width: 50%;
+  max-width: 330px;
+  padding: 7px;
+  margin: auto;
+}
+ 
+.mi_div_logout{
+  width: 100%;
+  max-width: 0px;
+  padding: 15px;
+  margin: auto;
+}
+
+
+
+div#loading {
+  width: 35px;
+  height: 35px;
+  display: none;
+  background: url(src/static/img/my_load.gif) no-repeat;
+  cursor: wait;
+  }
+
+.top-buffer { margin-top:100px; }
+
+
+.img-car {
+  float: left;
+  width:  350px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.img-car-adm {
+  float: left;
+  width:  550px;
+  height: 310px;
+  object-fit: cover;
+}
+
+#dtHorizontalVerticalExample {
+  height:200px;
+  width: 100%;
+  overflow-y:scroll;
+  display:block;
+}
+
+
+#viewDiv {
+  height: 600px;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}

@@ -1,0 +1,112 @@
+{% extends 'index.html' %}
+
+{% block customCSS %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+    <link rel="stylesheet"
+      href="https://js.arcgis.com/4.26/@arcgis/core/assets/esri/themes/dark/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://kit.fontawesome.com/61ebb60581.js" crossorigin="anonymous"></script>
+{% endblock %}
+
+
+{% block customJS %}
+<!-- Load the Chart.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- ArcGis Api-->
+<script src="https://js.arcgis.com/4.24/"></script>
+{% endblock %}
+
+
+
+{% block navBar %}
+
+<div class="btn-group">
+  <div class="btn btn-default dropdown-toggle" data-toggle="dropdown">Home<span class="caret"></span></div>
+  <ul class="dropdown-menu">
+      <li>
+      <a class="dropdown-item" href="{{url_for('home_bot_IA')}}">Home Bot IA</a>
+      </li>
+  </ul>
+</div>
+
+
+<div class="btn-group">
+  <div class="btn btn-default dropdown-toggle" data-toggle="dropdown">Servicios<span class="caret"></span></div>
+  <ul class="dropdown-menu">
+    <li>
+      <a class="dropdown-item" href="{{url_for('home_bot_IA_analitica')}}">Informe</a>
+    </li>
+  </ul>
+</div>
+
+
+<div class="btn-group">
+  <div class="btn btn-default dropdown-toggle" data-toggle="dropdown">Ayuda<span class="caret"></span></div>
+  <ul class="dropdown-menu">
+    <li>
+      <a class="dropdown-item" href="{{url_for('home_ayuda')}}">Formato Subir Archivos</a>
+    </li>
+  </ul>
+</div>
+
+<div class="btn-group">
+  <div class="btn btn-default dropdown-toggle" data-toggle="dropdown">Cerrar Sesión<span class="caret"></span></div>
+  <ul class="dropdown-menu">
+      <li>
+      <a class="dropdown-item" href="{{ url_for('logout') }}">Cerrar Sesión</a>
+      </li>
+  </ul>
+</div>
+{% endblock %}
+
+{% block body %}
+<h1> Bienvenido, {{ current_user.fullname }} </h1>
+
+
+<section class="pt-5 pb-5">
+  <div class="container">
+      <div class="row">
+          <div class="col-6">
+              <h3 class="mb-3">Servicios de Bot IA </h3>
+          </div>
+          <div class="col-6 text-right">
+              <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                  <i class="fa fa-arrow-left"></i>
+              </a>
+              <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators2" role="button" data-slide="next">
+                  <i class="fa fa-arrow-right"></i>
+              </a>
+          </div>
+
+          
+
+          <div class="col-12">
+              <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+
+                  <div class="carousel-inner">
+                      <div class="carousel-item active">
+
+                        <div class="card">
+                          <img class="img-fluid" alt="100%x280" src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80">
+                          <div class="card-body">
+                              <h4 class="card-title"> Bot IA</h4>
+                              <p class="card-text">Información del servicio.</p>
+                              <a href="{{url_for('home_bot_IA_analitica')}}" class="btn btn-primary mt-3">Ir a servicio</a>
+                          </div>
+
+                        </div>
+
+
+                      </div>
+                     
+
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+{% endblock%}

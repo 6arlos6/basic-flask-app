@@ -1,0 +1,221 @@
+<!--HTML PADRE-->
+{% extends './home_fac_admin.html' %}
+<!-- Mostrar Nombre de usuario -->
+{% block body %}
+<h1> Bienvenido, {{ current_user.fullname }} </h1>
+<h2> Servicio {{ servicio }} </h2>
+<!-- Mensajes flash -->
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <br/>
+      {% for message in messages %}
+      <div class="mi_div">
+          <div class="alert alert-success alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>{{message}}</strong>
+          </div>
+      </div>
+      {% endfor %}
+    {% endif %}
+{% endwith %}
+<!-- form de subir archivo con modal -->
+<form action = "/subir" method = "POST" enctype = multipart/form-data>
+<div class="row ">
+    <div class=" shadow center col-md-6  col-xs-12">
+        <h3 class="mb-3">Subir Archivos</h3>
+        <label for = "formFileMultiple" class = "form-label"> Subir Archivos </label>
+        <!--id = "formFileMultiple"-->
+        <input class = "form-control form-control-lg" name = "file[]" type = "file" id = "input2" multiple="" />
+        <div align ="center" >
+            <!-- Boton para activar modal -->
+            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal"  id="click">
+                Subir Archivos
+            </button>
+            <!-- Ayuda -->
+            <div class="row">
+            <div class="col-10"> 
+            </div>
+            <div class="col-2">
+            <a href="#" data-toggle="popover" title="Ayuda para subir archivo" data-content="{{Mensaje_help_1}}">
+                <i class="material-icons">help</i>
+            </a>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmar archivo subido</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <div class="header">
+                  <h3> Archivos Subidos... </h3>
+                </div>
+                <hr/>
+                <div>
+                Estos son los archivos que acabaste de subir, dale click para descargarlo y comprobar lo que subiste.
+                <!--<input type="file" id="input" /> !-->
+                <input class="btn btn-secondary" type='button' value='Descargar archivo subido' onclick='DownloadFile();'>
+                  <hr/>
+                </div>
+              </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>         
+                <input type = "hidden" name = "csrf_token" value = "{{ csrf_token() }}">
+                <input type = submit value = "Confirmar-Subir" class="btn btn-primary">
+                <script>document.getElementById('formFileMultiple').value = ""</script>
+        </div>
+    </div>
+    </div>
+</div>
+</form>
+<!-- bloque central de generar y descargar-->
+<div class="row">
+    <div class=" shadow col-md-5 col-sm-12 center ">
+        <!-- form para generar -->
+        <h3 class="mb-3">Generar reporte</h3>
+        <form id="generar_form" method = "POST" >
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type = "submit" id="myBTn" class="btn btn-lg btn-primary btn-block" type="button"> Generar reporte </button>
+            <div class="form-group mt-3">
+                <label for="miPeriodo">Periodo de generacion</label>
+                <input  class="form-control" id="miPeriodo" aria-describedby="periodoHelp" placeholder="Periodo de reporte" name = "periodo">
+                <small id="periodoHelp" class="form-text text-muted">Entrar periodo en el cual se está generando el reporte.</small>
+            </div>
+            <div class="alert alert-info mt-3">
+                {{Mensaje_Reporte}}
+            </div>
+        </form> 
+        <!-- ayuda para generar -->
+        <div class="row">
+            <div class="col-10"> 
+            </div>
+            <div class="col-2">
+            <a href="#" data-toggle="popover" title="Ayuda sobre Gen. Reporte" data-content="{{Mensaje_help_2}}">
+                <i class="material-icons">help</i>
+            </a>
+            </div>
+        </div>
+
+    </div>
+    <div class=" shadow col-md-5 col-sm-12 center ">
+        <!-- form para descargar-->
+        <h3 class="mb-3">Descargar reporte</h3>
+        <form  id="generar_form2" action="{{url_for('descargar', filename=file)}}" method = "POST" >
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type = "submit" id="myBTn2" class="btn btn-lg btn-primary btn-block" type="button"> Descargar reporte </button>
+            <div class="alert alert-info mt-3">
+                {{Mensaje_Descargar}}
+            </div>
+        </form>
+        <!-- ayuda para descargar -->
+        <div class="row">
+            <div class="col-10"> 
+            </div>
+            <div class="col-2">
+            <a href="#" data-toggle="popover" title="Ayuda sobre descarga de reporte" data-content="{{Mensaje_help_3}}">
+                <i class="material-icons">help</i>
+            </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- información ultima actualizacion de datos -->
+<div class="row">
+    <div class = "shadow col-md-11 col-sm-12 center ">
+        <div class="alert alert-info mx-auto col-md-6">
+            <strong>Información sobre ultima actualizacion de datos:</strong>  {{Mensaje_Actualizacion}}
+        </div>
+    </div>
+</div>
+
+<!-- dash -->
+<div class="row">
+<div align="center" class=" col-md-12 ">
+    <iframe  width="100%" height=4000 src="https://datastudio.google.com/embed/reporting/f575158c-98f4-4fe3-b13a-35e25b9285c4/page/SdQDD" 
+     frameborder="0" style="border:0"  allowfullscreen ></iframe>
+
+</div>
+</div>
+<!-- iframe 
+<script>
+    onload="resizeIframe(this)"
+    function resizeIframe(obj) {
+    var windowHeight = document.body.scrollHeight;
+    obj.style.height = windowHeight + 'px';
+    }
+</script>-->
+<!-- Cerrar secion -->
+<div class = "mi_div_logout">
+    <a href="{{ url_for('logout') }}" class="btn btn-secondary btn-lg active" role="button">Salir</a>
+</div>
+<!--popover scrip-->
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();
+    });
+</script>
+<!--descargar archivis subido-->
+<script>
+    function DownloadFile() {
+        file = input2.files[0];
+        var numFiles = file.length;
+        console.log(file)
+        fr = new FileReader();
+        fr.readAsDataURL(file);
+        var blob = new Blob([file], { type: "application/xlsx" });
+        var objectURL = window.URL.createObjectURL(blob);
+        console.log(objectURL);
+        if (navigator.appVersion.toString().indexOf('.NET') > 0) {
+            window.navigator.msSaveOrOpenBlob(blob, 'myFileName.xlsx');
+        } else {
+            var link = document.createElement('a');
+            link.href = objectURL;
+            link.download = "myFileName.xlsx";
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        }
+    }
+</script>
+<!--AJAX spinner-->
+<script>
+    $(document).ready(()=>{
+        $("#generar_form").on("submit",(e)=>{
+            e.preventDefault();
+            console.log("Generar ha sido clickeado...");
+            var  spinner = '<div class="spinner-border" role="status"><span class="sr-only">loading...</span></div>';
+            $("#myBTn").html(spinner);
+            $("#myBTn" ).prop( "disabled", true );
+            $.ajax({
+                url:"{{url_for('generar')}}",
+                type:"POST",
+                data: $("#generar_form").serialize(),
+                success: function(response) {
+                //var s = '<button id="myBTn" class="btn btn-lg btn-primary btn-block" type="button"> Register </button>';
+                $("#myBTn").text("Register");
+                $("#myBTn" ).prop( "disabled", false );
+                window.location.reload();
+                //$( "#myForm" ).prop( "disabled", false );
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+                window.location.reload();
+            }
+            });
+        });
+    
+    })
+</script>
+{% endblock %}

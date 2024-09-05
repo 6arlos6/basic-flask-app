@@ -1,0 +1,59 @@
+{% extends './home_admin.html' %}
+
+{% block body %}
+
+<h1> Bienvenido, {{ current_user.fullname }} </h1>
+
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <br/>
+      {% for message in messages %}
+      <div class="mi_div">
+          <div class="alert alert-success alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <strong>{{message}}</strong>
+          </div>
+      </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+
+  <div class="center">
+    <form action="/home_api" method = "POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-group">
+          <label for="exampleInputUserName">Ingresar UserName</label>
+          <input type="text" class="form-control" id="xampleInputUserName" aria-describedby="usernameHelp" placeholder="Enter user name", name="username">
+          <small id="usernameHelp" class="form-text text-muted">Ingresar User name.</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password", name="password">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputFullName">Ingresar FullName</label>
+            <input type="text" class="form-control" id="xampleInputFullName" aria-describedby="FullNameHelp" placeholder="Enter FullName", name="fullname">
+            <small id="FullNameHelp" class="form-text text-muted">Ingresar FullName.</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputRol">Ingresar Rol</label>
+            <input type="text" class="form-control" id="xampleInputRol" aria-describedby="RolHelp" placeholder="Enter Rol", name="rol">
+            <small id="RolHelp" class="form-text text-muted">Ingresar Rol.</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputRol">Ingresar Fecha mod</label>
+          <input type="text" class="form-control" id="xampleInputRol" aria-describedby="RolHelp" placeholder="Enter Rol", name="date_mod">
+          <small id="RolHelp" class="form-text text-muted">Ingresar Fecha mod.</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+</div>
+
+<div class = "mi_div_logout">
+    <a href="{{ url_for('logout') }}" class="btn btn-secondary btn-lg active" role="button">Logout</a>
+</div>
+
+
+{% endblock %}
