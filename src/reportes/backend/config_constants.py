@@ -20,6 +20,7 @@ class Constantes:
         return f"Constantes({dict(self._constantes)})"
     
 # Ejemplo de uso
+""""
 my_config_constants = Constantes( type_gsheet_write_sede = "servicio",
                                   name_file_gsheet_sede = "UIA-FACULTADES_V2",
                                   type_gsheet_write_dates = "servicio",
@@ -35,3 +36,20 @@ my_config_constants = Constantes( type_gsheet_write_sede = "servicio",
                                   path_save_sede = os.path.join('src','data','sede','generados'),
                                   path_send_file_1 = os.path.join('src','data',"my_reporte.xlsx"),
                                   path_send_file_2 = os.path.join('src','data',"my_reporte_date.xlsx"))
+"""
+
+my_config_constants = Constantes( type_gsheet_write_sede = "servicio",
+                                  name_file_gsheet_sede = "UIA-FACULTADES_V2",
+                                  type_gsheet_write_dates = "servicio",
+                                  name_file_gsheet_dates = 'UIA-Historial_dates',
+                                  mysql_username = "root",
+                                  mysql_host = "localhost",
+                                  mysql_password = "mySQ|d4m4*",
+                                  mysql_db = "flask_login",
+                                  upload_folder = os.path.join('home','Analisis','basic-flask-app',"src","data"),
+                                  flask_secret_key = "B!1w8NAt1T^%kvhUI*S^",
+                                  principal_path = os.path.join('home','Analisis','basic-flask-app',"src","data"),
+                                  path_principal_2 = os.path.join('home','Analisis','basic-flask-app','src','data','static_data', 'sede'),
+                                  path_save_sede = os.path.join('home','Analisis','basic-flask-app','src','data','sede','generados'),
+                                  path_send_file_1 = os.path.join('home','Analisis','basic-flask-app','src','data',"my_reporte.xlsx"),
+                                  path_send_file_2 = os.path.join('home','Analisis','basic-flask-app','src','data',"my_reporte_date.xlsx"))
