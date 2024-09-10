@@ -1002,7 +1002,21 @@ def normalizacion_col(col_name, df):
 # Funcion para hacer match:
 # esta seccion presenta problemas en sphinx comentarla para que guncione
 # path_planes = os.path.join('/home/Analisis/basic-flask-app/src/data','Planes.xlsx')
-path_planes = os.path.join('src/data','Planes.xlsx')
+
+
+# Ruta actual donde se encuentra dllcopy.py
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Subir dos niveles para llegar al mismo nivel que folderA
+project_root = os.path.abspath(os.path.join(current_dir, '..', '..'))
+
+# Crear la ruta completa al archivo Excel en folderA
+path_planes  = os.path.join(project_root, 'data', 'Planes.xlsx')
+
+# path_planes = os.path.join('src/data','Planes.xlsx')
+
+
+
 
 df_planes = pd.read_excel(path_planes)
 # crear df nueva:
