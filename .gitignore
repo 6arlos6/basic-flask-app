@@ -1,9 +1,11 @@
 /env/
 __pycache__/
 *.py[cod]
+
 # Ignorar archivos Excel
 *.xls
 *.xlsm
+*.xlsx
 
 # Ignorar archivos JSON
 *.json

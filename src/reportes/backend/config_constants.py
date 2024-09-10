@@ -20,8 +20,8 @@ class Constantes:
         return f"Constantes({dict(self._constantes)})"
     
 # Ejemplo de uso
-""""
-my_config_constants = Constantes( type_gsheet_write_sede = "servicio",
+
+my_config_constants_local = Constantes( type_gsheet_write_sede = "servicio",
                                   name_file_gsheet_sede = "UIA-FACULTADES_V2",
                                   type_gsheet_write_dates = "servicio",
                                   name_file_gsheet_dates = 'UIA-Historial_dates',
@@ -36,9 +36,9 @@ my_config_constants = Constantes( type_gsheet_write_sede = "servicio",
                                   path_save_sede = os.path.join('src','data','sede','generados'),
                                   path_send_file_1 = os.path.join('src','data',"my_reporte.xlsx"),
                                   path_send_file_2 = os.path.join('src','data',"my_reporte_date.xlsx"))
-"""
 
-my_config_constants = Constantes( type_gsheet_write_sede = "servicio",
+
+my_config_constants_server = Constantes( type_gsheet_write_sede = "servicio",
                                   name_file_gsheet_sede = "UIA-FACULTADES_V2",
                                   type_gsheet_write_dates = "servicio",
                                   name_file_gsheet_dates = 'UIA-Historial_dates',
@@ -53,3 +53,14 @@ my_config_constants = Constantes( type_gsheet_write_sede = "servicio",
                                   path_save_sede = os.path.join('home','Analisis','basic-flask-app','src','data','sede','generados'),
                                   path_send_file_1 = os.path.join('home','Analisis','basic-flask-app','src','data',"my_reporte.xlsx"),
                                   path_send_file_2 = os.path.join('home','Analisis','basic-flask-app','src','data',"my_reporte_date.xlsx"))
+
+
+
+
+my_config = {
+    "local":my_config_constants_local,
+    "server":my_config_constants_server
+}
+
+# Configuraciones
+my_config_constants = my_config["local"]
