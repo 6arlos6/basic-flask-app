@@ -11,14 +11,18 @@ class ModelUser():
         try:
             cursor = db.connection.cursor()
             sql = """SELECT id, username, password, fullname, rol, fecha_modificacion
-                     FROM user_rol
-                     WHERE username = '{}'""".format(user.username)
-            cursor.execute(sql)
+                 FROM user_rol
+                 WHERE username = %s"""
+            cursor.execute(sql, (user.username,))
             row = cursor.fetchone()
-            if row != None:
-                
-                user = User(row[0], row[1], User.check_password(row[2], user.password), row[3], row[4], row[5])
-                return user
+            if row is not None:
+                # Verificación de la contraseña
+                is_password_valid = User.check_password(row[2], user.password)
+                if is_password_valid:
+                    user = User(row[0], row[1], is_password_valid, row[3], row[4], row[5])
+                    return user
+                else:
+                    return None
             else:
                 return None
         except Exception as ex:
@@ -28,10 +32,10 @@ class ModelUser():
     def get_by_id(self, db, id):
         try:
             cursor = db.connection.cursor()
-            sql = "SELECT id, username, fullname, rol, fecha_modificacion FROM user_rol WHERE id = {}".format(id)
-            cursor.execute(sql)
+            sql = "SELECT id, username, fullname, rol, fecha_modificacion FROM user_rol WHERE id = %s"
+            cursor.execute(sql, (id,))
             row = cursor.fetchone()
-            if row != None:
+            if row is not None:
                 return User(row[0], row[1], None, row[2], row[3])
             else:
                 return None
