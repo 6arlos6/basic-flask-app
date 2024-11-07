@@ -54,9 +54,6 @@ my_config_constants_server = Constantes( type_gsheet_write_sede = "servicio",
                                   path_send_file_1 = os.path.join('home','Analisis','basic-flask-app','src','data',"my_reporte.xlsx"),
                                   path_send_file_2 = os.path.join('home','Analisis','basic-flask-app','src','data',"my_reporte_date.xlsx"))
 
-
-
-
 my_config = {
     "local":my_config_constants_local,
     "server":my_config_constants_server
