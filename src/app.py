@@ -1747,7 +1747,8 @@ def generar():
                 
                 # save reporte:
                 path_save = my_config_constants["path_save_sede"]
-                df_matriculados_def.to_excel(path_save + session['download_file'][0] , index=False)
+                path_save = os.path.join(path_save, session['download_file'][0])
+                df_matriculados_def.to_excel(path_save, index=False)
                 
                 # Cast df:
                 df_matriculados_def = format_column(df_matriculados_def, "PBM", "to_int")
@@ -1867,7 +1868,8 @@ def generar():
                 
                 # save reporte:
                 path_save = my_config_constants["path_save_sede"]
-                df_bloq_administrativas_def.to_excel(path_save + session['download_file'][0] , index=False)
+                path_save = os.path.join(path_save, session['download_file'][0])
+                df_bloq_administrativas_def.to_excel(path_save, index=False)
                 
                 print("==================== SALIENDO DE CHECK REPEAT =============================")
                 print(df_bloq_administrativas_def.info())
@@ -2009,7 +2011,8 @@ def generar():
                 
                 # save reporte:
                 path_save = my_config_constants["path_save_sede"]
-                df_bloq_academicas_def.to_excel(path_save + session['download_file'][0] , index=False)
+                path_save = os.path.join(path_save, session['download_file'][0])
+                df_bloq_academicas_def.to_excel(path_save, index=False)
                 
                 # Cast df:
                 df_bloq_academicas_def = format_column(df_bloq_academicas_def, "PBM", "to_int")
