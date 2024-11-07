@@ -2386,14 +2386,11 @@ def down(reg, my_user, date):
 def down_date():
     table_service = session['table']
     df_dates = ModelUser.get_distinct_V2(db,  table_service) # poner el nombre de la tabla adecuada
-    path = my_config_constants["path_send_file_2"]
-    df_dates.to_excel(path , index=False)
     # actualizar web
     MODEL_SERVICIOS.write_google_sheet(df_dates,
                                        'servicio',
                                        my_config_constants["name_file_gsheet_dates"],
                                        table_service)
-    
     return redirect(session['back_url'])
 
 # ============================================================================
