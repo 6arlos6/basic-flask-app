@@ -2391,10 +2391,10 @@ def down_date():
     # actualizar web
     MODEL_SERVICIOS.write_google_sheet(df_dates,
                                        'servicio',
-                                       'Historial_dates',
+                                       my_config_constants["name_file_gsheet_dates"],
                                        table_service)
     
-    return send_file(path , as_attachment=True)
+    return redirect(session['back_url'])
 
 # ============================================================================
 # HTML ERROR:

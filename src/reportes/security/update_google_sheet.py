@@ -13,6 +13,9 @@ import os
 # path de mis constantes:
 from src.reportes.backend.config_constants import my_config_constants
 
+print("=============XXXXXXXXX======================")
+print(my_config_constants["path_json_google_sheets"])
+
 
 def my_worksheet(rol, documento, hoja, row = None, col = None):
     """Returns a list of :class:`bluepy.blte.Service` objects representing
