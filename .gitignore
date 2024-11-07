@@ -10,3 +10,10 @@ __pycache__/
 # Ignorar archivos JSON
 *.json
 *.geojson
+
+# Excepción: permitir archivos Excel en data/reportes_excel/
+# src\data\static_data
+!src/data/static_data/
+!src/data/static_data/*.xls
+!src/data/static_data/*.xlsm
+!src/data/static_data/*.xlsx
