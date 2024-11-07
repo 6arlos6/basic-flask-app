@@ -9,6 +9,11 @@ Sphinx's napoleon extension, which is beyond the scope of this tutorial."""
 import gspread
 import os
 
+
+# path de mis constantes:
+from src.reportes.backend.config_constants import my_config_constants
+
+
 def my_worksheet(rol, documento, hoja, row = None, col = None):
     """Returns a list of :class:`bluepy.blte.Service` objects representing
     the services offered by the device. This will perform Bluetooth service
@@ -26,24 +31,24 @@ def my_worksheet(rol, documento, hoja, row = None, col = None):
     # src/reportes/security/update_google_sheet.py
     if rol == 'servicio':
         if row == None:
-            PATH_PRINCIPAL = os.path.join("src","reportes","security","dama-datos.json")
+            PATH_PRINCIPAL = my_config_constants["path_json_google_sheets"]
             sa = gspread.service_account(filename=PATH_PRINCIPAL)
             sh = sa.open(documento)
             w = sh.worksheet(hoja)
         else:
-            PATH_PRINCIPAL = os.path.join("src","reportes","security","dama-datos.json")
+            PATH_PRINCIPAL =  my_config_constants["path_json_google_sheets"]
             sa = gspread.service_account(filename=PATH_PRINCIPAL)
             sh = sa.open(documento)
             w = sh.add_worksheet(title=hoja,rows=f"{row}", cols=f"{col}")
         return w
     elif rol == 'sia':
         if row == None:
-            PATH_PRINCIPAL = os.path.join("src","reportes","security","dama-datos.json")
+            PATH_PRINCIPAL = my_config_constants["path_json_google_sheets"]
             sa = gspread.service_account(filename=PATH_PRINCIPAL)
             sh = sa.open(documento)
             w = sh.worksheet(hoja)
         else:
-            PATH_PRINCIPAL = os.path.join("src","reportes","security","dama-datos.json")
+            PATH_PRINCIPAL = my_config_constants["path_json_google_sheets"]
             sa = gspread.service_account(filename=PATH_PRINCIPAL)
             sh = sa.open(documento)
             w = sh.add_worksheet(title=hoja,rows=f"{row}", cols=f"{col}")

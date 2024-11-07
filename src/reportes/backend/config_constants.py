@@ -35,7 +35,8 @@ my_config_constants_local = Constantes( type_gsheet_write_sede = "servicio",
                                   path_principal_2 = os.path.join('src','data','static_data', 'sede'),
                                   path_save_sede = os.path.join('src','data','sede','generados'),
                                   path_send_file_1 = os.path.join('src','data',"my_reporte.xlsx"),
-                                  path_send_file_2 = os.path.join('src','data',"my_reporte_date.xlsx"))
+                                  path_send_file_2 = os.path.join('src','data',"my_reporte_date.xlsx"),
+                                  path_json_google_sheets = os.path.join("src","reportes","security","dama-datos.json"))
 
 
 my_config_constants_server = Constantes( type_gsheet_write_sede = "servicio",
@@ -52,7 +53,8 @@ my_config_constants_server = Constantes( type_gsheet_write_sede = "servicio",
                                   path_principal_2 = os.path.join('home','Analisis','basic-flask-app','src','data','static_data', 'sede'),
                                   path_save_sede = os.path.join('home','Analisis','basic-flask-app','src','data','sede','generados'),
                                   path_send_file_1 = os.path.join('home','Analisis','basic-flask-app','src','data',"my_reporte.xlsx"),
-                                  path_send_file_2 = os.path.join('home','Analisis','basic-flask-app','src','data',"my_reporte_date.xlsx"))
+                                  path_send_file_2 = os.path.join('home','Analisis','basic-flask-app','src','data',"my_reporte_date.xlsx"),
+                                  path_json_google_sheets = os.path.join('home','Analisis',"json_key_google_sheets","dama-datos.json"))
 
 my_config = {
     "local":my_config_constants_local,
