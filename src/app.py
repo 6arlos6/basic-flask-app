@@ -535,7 +535,7 @@ def home_tramites_y_solicitudes():
         session['required_files'] = ['tramites_solicitudes.xlsx']
         session['download_file'] =  ['tramites_solicitudes.xlsx']
         session['path_template'] =  'acompanamiento/home_acmp_user.html'
-        session['link'] = 'https://lookerstudio.google.com/embed/reporting/858b444c-aad8-442f-bbd3-58a00dbbb5bb/page/p_jwrt34r88c'
+        session['link'] = 'https://lookerstudio.google.com/embed/reporting/b0fe10ca-69ae-48b5-b84f-ec10c81a0b6d/page/p_jwrt34r88c'
         session['table'] = 'acmp_2' 
         # Ayuda:
         session['servicio'] = 'tramites_y_solicitudes'
@@ -1237,10 +1237,10 @@ def generar():
                 # outputs:
                 df_admin_1 = MODEL_ADMIN.main_siaspp2(name_pss, name_estudiantes_ant, name_estudiantes_now, list_names, name_save, periodo='2022-2S')
                 # to google:
-                try:
-                    MODEL_ADMIN.write_google_sheet(df_admin_1, 'servicio', 'REPORTES_DAMA', 'ADMIN_1',w=1)
-                except:
-                    MODEL_ADMIN.write_google_sheet(df_admin_1, 'servicio', 'REPORTES_DAMA', 'ADMIN_1',w=0)
+                #try:
+                #    MODEL_ADMIN.write_google_sheet(df_admin_1, 'servicio', 'REPORTES_DAMA', 'ADMIN_1',w=1)
+                #except:
+                #    MODEL_ADMIN.write_google_sheet(df_admin_1, 'servicio', 'REPORTES_DAMA', 'ADMIN_1',w=0)
                 # flask mensaje
                 flash('Cruce Realizado.')
                 # Actualizar fecha de modificacion:
@@ -1431,7 +1431,7 @@ def generar():
                 # DF:
                 df_ppl, df = MODEL_SERVICIOS.make_service2pss(name_pss, name_load, name_pss2, name_save, df_historico)
                 # cambiar modulo servicios de aca para abajo.
-                MODEL_SERVICIOS.write_google_sheet(df, 'servicio', 'REPORTES_DAMA', 'ACMP_2')
+                MODEL_SERVICIOS.write_google_sheet(df, 'servicio', my_config_constants['name_file_gsheet_servicios_dama'], session['table'])
                 flash('Cruce Realizado.')
                 # Actualizar fecha
                 now = datetime.now()
@@ -2349,8 +2349,8 @@ def delete(reg, my_user, date):
             
         else:
             type_service = 'servicio'
-            google_sheet_file = 'REPORTES_DAMA'
-            table_to_delete_google = session["table"].upper()
+            google_sheet_file = my_config_constants['name_file_gsheet_servicios_dama']
+            table_to_delete_google = session["table"]
             df_historico = ModelUser.get_all_table(db, session["table"]) 
 
             # Actualizar google sheet

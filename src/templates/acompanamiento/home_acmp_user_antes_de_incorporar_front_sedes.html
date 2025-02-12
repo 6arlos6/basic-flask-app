@@ -1,14 +1,9 @@
 <!--HTML PADRE-->
-{% extends './home_sede.html' %}
+{% extends './home_acompanamiento.html' %}
 <!-- Mostrar Nombre de usuario -->
 {% block body %}
 <h1> Bienvenido, {{ current_user.fullname }} </h1>
 <h2> Servicio {{ servicio }} </h2>
-
-
-<h3> Cambio </h3>
-
-
 <!-- Mensajes flash -->
 {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -24,16 +19,59 @@
     {% endif %}
 {% endwith %}
 
-
-
-
-
 <!-- bloque central de generar y descargar-->
 <div class="row">
+    <div class=" shadow col-md-5 col-sm-12 center ">
+        <!-- form para generar -->
+        <h3 class="mb-3">Generar reporte</h3>
+        <form id="generar_form" method = "POST" >
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type = "submit" id="myBTn" class="btn btn-lg btn-primary btn-block" type="button"> Generar reporte </button>
+            <div class="alert alert-info mt-3">
+                {{Mensaje_Reporte}}
+            </div>
+        </form> 
+        <!-- ayuda para generar -->
+        <div class="row">
+            <div class="col-10"> 
+            </div>
+            <div class="col-2">
+            <a href="#" data-toggle="popover" title="Ayuda sobre Gen. Reporte" data-content="{{Mensaje_help_2}}">
+                <i class="material-icons">help</i>
+            </a>
+            </div>
+        </div>
 
+    </div>
+    
+    <div class=" shadow col-md-5 col-sm-12 center ">
+        <!-- form para descargar-->
+        <h3 class="mb-3">Descargar reporte</h3>
+        <form  id="generar_form2" action="{{url_for('descargar', filename=file)}}" method = "POST" >
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type = "submit" id="myBTn2" class="btn btn-lg btn-primary btn-block" type="button"> Descargar reporte </button>
+            <div class="alert alert-info mt-3">
+                {{Mensaje_Descargar}}
+            </div>
+        </form>
+        <!-- ayuda para descargar -->
+        <div class="row">
+            <div class="col-10"> 
+            </div>
+            <div class="col-2">
+            <a href="#" data-toggle="popover" title="Ayuda sobre descarga de reporte" data-content="{{Mensaje_help_3}}">
+                <i class="material-icons">help</i>
+            </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- bloque central de generar y descargar 222222222222222222222222-->
+<div class="row">
     <div class=" shadow col-md-5 col-sm-12 center mt-1">
         <!-- form para subir -->
-        <h3 class="mb-1">1 . Subir información</h3>
+        <h3 class="mb-1">Generar reporte</h3>
         <!-- form de subir archivo con modal -->
         <form class = "mx-1" action = "/subir" method = "POST" enctype = multipart/form-data>
             <div class=" shadow center col-md-12  col-xs-12">
@@ -43,14 +81,6 @@
                 <input class = "form-control form-control-lg" name = "file[]" type = "file" id = "input2" multiple="" />
                 <div align ="center" >
                     <!-- Boton para activar modal -->
-
-                    <!-- Input rangos -->
-                    <!--<div class="mt-3">
-                        <label for="periodoReporte">Ingresa tu texto:</label>
-                        <input type="text" id="periodoReporte" name="periodoReporte">
-                    </div>-->
-
-
                     <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal"  id="click">
                         Subir Archivos
                     </button>
@@ -102,43 +132,10 @@
         </div>
         </form>
     </div>
-
-    <div class=" shadow col-md-5 col-sm-12 center mt-1">
-        <!-- form para generar -->
-        <h3 class="mb-5 mt-5">2. Generar reporte</h3>
-
-        <div class=" shadow center col-md-12 col-xs-9 mt-12">
-        <form id="generar_form" method = "POST" >
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            <button type = "submit" id="myBTn" class="btn btn-lg btn-primary btn-block" type="button"> Generar reporte </button>
-            <div class="alert alert-info mt-3">
-                {{Mensaje_Reporte}}
-            </div>
-        </form> 
-        <!-- ayuda para generar -->
-        <div class="row">
-            <div class="col-10"> 
-            </div>
-            <div class="col-2">
-            <a href="#" data-toggle="popover" title="Ayuda sobre Gen. Reporte" data-content="{{Mensaje_help_2}}">
-                <i class="material-icons">help</i>
-            </a>
-            </div>
-        </div>
-    </div>
-
-    </div>
-    
-
-</div>
-
-<!-- bloque central de generar y descargar 222222222222222222222222-->
-<div class="row">
-
     
     <div class=" shadow col-md-5 col-sm-12 center mt-1">
         <!-- form para descargar-->
-        <h3 class="mb-3">3. Historial de reportes</h3>
+        <h3 class="mb-3">Tabla</h3>
         <!--<table class="table table-bordered">-->
           <input class="form-control" id="myInput" type="text" placeholder="Search..">
           <br>
@@ -150,7 +147,6 @@
                 <th scope="col">Registros</th>
                 <th scope="col">Usuario</th>
                 <th scope="col">Fecha</th>
-                <th scope="col">Periodo</th>
                 <th scope="col">Acciones</th>
                 <th scope="col">Ver</th>
               </tr>
@@ -165,7 +161,7 @@
                 <td>
                   <form action="{{ url_for('delete', reg = user[0], my_user = user[1], date = user[2]) }}" method="post">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
                   </form>
                 </td>
                 <td>
@@ -181,8 +177,7 @@
             <!--<button type="submit" class="btn btn-primary"><i class="fas fa-sort-down"></i></button> -->
             <form action="{{ url_for('down_date') }}" method="post">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                <h5 class="mb-3">Actualizar historial en dashboard:</h5>
-                <button type="submit" class="mb-3 btn btn-primary"><i class="fas fa-file-excel"></i></button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-sort-down"></i></button>
             </form>
           </table>
         </div>
@@ -197,36 +192,7 @@
             </div>
         </div>
     </div>
-
-    <div class=" shadow col-md-5 col-sm-12 center mt-1">
-        <!-- form para descargar-->
-        <h3 class="mb-5 mt-5">4. Descargar reporte actual</h3>
-        <div class=" shadow center col-md-12 col-xs-9 col-mt-1">
-        <form  id="generar_form2" action="{{url_for('descargar', filename=file)}}" method = "POST" >
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            <button type = "submit" id="myBTn2" class="btn btn-lg btn-primary btn-block" type="button"> Descargar reporte </button>
-            <div class="alert alert-info mt-3">
-                {{Mensaje_Descargar}}
-            </div>
-        </form>
-        <!-- ayuda para descargar -->
-        <div class="row">
-            <div class="col-10"> 
-            </div>
-            <div class="col-2">
-            <a href="#" data-toggle="popover" title="Ayuda sobre descarga de reporte" data-content="{{Mensaje_help_3}}">
-                <i class="material-icons">help</i>
-            </a>
-            </div>
-        </div>
-    </div>
-    </div>
 </div>
-
-
-
-
-
 
 <!-- información ultima actualizacion de datos -->
 <div class="row">

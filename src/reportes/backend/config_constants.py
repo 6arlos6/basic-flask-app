@@ -36,7 +36,9 @@ my_config_constants_local = Constantes( type_gsheet_write_sede = "servicio",
                                   path_save_sede = os.path.join('src','data','sede','generados'),
                                   path_send_file_1 = os.path.join('src','data',"my_reporte.xlsx"),
                                   path_send_file_2 = os.path.join('src','data',"my_reporte_date.xlsx"),
-                                  path_json_google_sheets = os.path.join("src","reportes","security","dama-datos.json"))
+                                  path_json_google_sheets = os.path.join("src","reportes","security","dama-datos.json"),
+                                  # dama servicios
+                                  name_file_gsheet_servicios_dama = "UIA-REPORTES_DAMA")
 
 
 my_config_constants_server = Constantes( type_gsheet_write_sede = "servicio",
