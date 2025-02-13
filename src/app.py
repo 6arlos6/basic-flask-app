@@ -945,7 +945,7 @@ def home_sede_matriculados():
         
         # Acá la logica es que los tres reportes se hacen ... hay que hacer varios servicios acá... hay que hacer tres.
         
-        df_dates = ModelUser.get_distinct_V2(db,  session['table'])
+        df_dates = ModelUser.get_distinct_V3(db,  session['table'])
         data = df_dates.values.tolist()
         # render
         session['data'] = data
@@ -987,7 +987,7 @@ def home_sede_bloq_admin():
         
         # Acá la logica es que los tres reportes se hacen ... hay que hacer varios servicios acá... hay que hacer tres.
         
-        df_dates = ModelUser.get_distinct_V2(db,  session['table'])
+        df_dates = ModelUser.get_distinct_V3(db,  session['table'])
         data = df_dates.values.tolist()
         # render
         session['data'] = data
@@ -1031,7 +1031,7 @@ def home_sede_bloq_academ():
         
         # Acá la logica es que los tres reportes se hacen ... hay que hacer varios servicios acá... hay que hacer tres.
         
-        df_dates = ModelUser.get_distinct_V2(db,  session['table'])
+        df_dates = ModelUser.get_distinct_V3(db,  session['table'])
         data = df_dates.values.tolist()
         # render
         session['data'] = data
