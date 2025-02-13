@@ -17,3 +17,5 @@ __pycache__/
 !src/data/static_data/*.xls
 !src/data/static_data/*.xlsm
 !src/data/static_data/*.xlsx
+
+!src/reportes/backend/test_structure.json

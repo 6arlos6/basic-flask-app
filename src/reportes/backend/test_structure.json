@@ -1,0 +1,184 @@
+{
+    "101": {
+        "expected_sheets": {
+            "RE_ACT_PER_TABLA_DE_DATOS.xlsx": ["Sheet1", "Sheet2"],
+            "RE_MAT_PAV_PAP_TABLA_DE_DATOS.xlsx": ["Sheet1", "Sheet2"],
+            "RE_MAT_PER_TABLA_DE_DATOS.xlsx":["Sheet1", "Sheet2"]
+        },
+        "expected_columns": {
+            "RE_ACT_PER_TABLA_DE_DATOS.xlsx": {
+                "Sheet2": [
+                    "SEDE", "COD_FACULTAD", "FACULTAD", "COD_PLAN", "PLAN", "CONVENIO_PLAN",
+                    "COD_NIVEL", "NIVEL", "HIST_ACAD", "AVANCE_CARRERA", "DOCUMENTO", "NOMBRES",
+                    "APELLIDO1", "APELLIDO2", "NOMBRES_APELLIDOS", "COD_ACCESO", "ACCESO",
+                    "COD_SUBACCESO", "SUBACCESO", "CONVOCATORIA", "APERTURA", "T_DOCUMENTO",
+                    "GENERO", "EMAIL", "USUARIO", "CODIGO", "FECHA_NACIMIENTO", "EDAD",
+                    "NUMERO_MATRICULAS", "PAPA", "PROME_ACADE", "PBM_CALCULADO", "ESTRATO",
+                    "CORREO_PERSONAL", "TELEFONO1", "TELEFONO2", "DIRECCION", "COD_DEPTO_RESIDENCIA",
+                    "DEPTO_RESIDENCIA", "COD_MUN_RESIDENCIA", "MUNICIPIO_RESIDENCIA", "COD_PROVINCIA",
+                    "PROVINCIA_NACIMIENTO", "COD_MINICIPIO", "MUNICIPIO_NACIMIENTO", "COD_NACIONALIDAD",
+                    "PAIS-NACIONALIDAD", "VICTIMAS_DEL_CONFLICTO", "DISCAPACIDAD", "NOMBRE_COLEGIO",
+                    "CARACTER_COLEGIO", "NOMBRE_MADRE", "TELEFONO_MADRE", "NOMBRE_PADRE", "TELEFONO_PADRE",
+                    "DIRECCION_FAM", "TELEFONO1_FAM", "TELEFONO2_FAM", "CORREO_PERSONAL_FAM",
+                    "COD_DEPTO_RESIDENCIA_FAM", "DEPTO_RESIDENCIA_FAM", "COD_MUN_RESIDENCIA_FAM",
+                    "MUNICIPIO_RESIDENCIA_FAM", "FECHA_CARGA_PREINSCRIPCION", "COD_NODO_INICIO",
+                    "NODO_INICIO", "CARNET_UN", "PUNTAJE_ADMISION"
+                ]
+            },
+            "RE_MAT_PAV_PAP_TABLA_DE_DATOS.xlsx": {
+                "Sheet2": [
+                    "SEDE", "COD_FACULTAD", "FACULTAD", "COD_PLAN", "PLAN", "CONVENIO_PLAN",
+                    "HIS_ACAD", "DOCUMENTO", "NOMBRES_APELLIDOS", "EMAIL", "COD_ACCESO",
+                    "ACCESO", "COD_SUBACCESO", "SUBACCESO", "PAPA", "PROMEDIO_ACADEMICO",
+                    "PROMEDIO_GRADUADO", "AVANCE_CARRERA", "BLOQUEADO", "CERRADO",
+                    "PERIODO_ADMISION", "PERIODO_APERTURA"
+                ]
+                
+            },
+            "RE_MAT_PER_TABLA_DE_DATOS.xlsx":{
+                "Sheet2": [
+                    "PERIODO", "PERIODO_BIENESTAR", "COD_SEDE", "SEDE", "COD_FACULTAD", "FACULTAD",
+                    "COD_PROGRAMA_CURRICULAR", "PROGRAMA_CURRICULAR", "COD_UAB", "UAB", "COD_PLAN",
+                    "PLAN", "CONVENIO_PLAN", "TIPO_NIVEL", "COD_NIVEL", "NIVEL", "NOMBRES",
+                    "APELLIDO1", "APELLIDO2", "T_DOCUMENTO", "DOCUMENTO", "EXPEDIENTE", "CONVOCATORIA",
+                    "APERTURA", "COD_ACCESO", "ACCESO", "COD_SUBACCESO", "SUBACCESO", "MATRICULADO",
+                    "CAUSA_BLOQUEO", "FECHA_NACIMIENTO", "EDAD", "COD_ESTADO_CIVIL", "ESTADO_CIVIL",
+                    "SEXO_LEGAL", "GENERO", "LOGIN", "CORREO", "COD_DEPARTAMENTO_RESIDENCIA",
+                    "DEPARTAMENTO_RESIDENCIA", "COD_MUNICIPIO_RESIDENCIA", "MUNICIPIO_RESIDENCIA",
+                    "DIRECCION_RESIDENCIA", "TEL_RESIDENCIA", "COD_DEPARTAMENTO_PROCEDENCIA",
+                    "DEPARTAMENTO_PROCEDENCIA", "COD_MUNICIPIO_PROCEDENCIA", "MUNICIPIO_PROCEDENCIA",
+                    "DIRECCION_PROCEDENCIA", "TEL_PROCEDENCIA", "EXTRANJERO", "COD_PAIS_NACIMIENTO",
+                    "PAIS_NACIMIENTO", "COD_DEPARTAMENTO_NACIMIENTO", "DEPARTAMENTO_NACIMIENTO",
+                    "COD_MUNICIPIO_NACIMIENTO", "MUNICIPIO_NACIMIENTO", "ESTRATO", "EPS", "RH",
+                    "COD_ETNIA", "ETNIA", "PBM", "MATRICULAS", "VALOR_MATRICULA", "VLR_PAGADO",
+                    "PERIODO_RECIBO", "TIPCOLEGIO", "MODACADEMICA", "NOMBRE_COLEGIO", "DIRECCION_COLEGIO",
+                    "COD_DEPARTAMENTO_COLEGIO", "DEPARTAMENTO_COLEGIO", "COD_MUNICIPIO_COLEGIO",
+                    "MUNICIPIO_COLEGIO", "ANO_TERMINACION_COLEGIO", "NODO_INICIO", "NUMERO_HIJOS",
+                    "INGRESOS_FAMILIARES", "PENSION_COLEGIO", "CARACTER_COLEGIO", "ESTRATO_VIVIENDA",
+                    "LUGAR_RESIDENCIA", "PROPIEDAD_VIVIENDA", "PROM_ACADEMICO_ACTUAL", "PAPA_PERIODO",
+                    "FECHA_CARGA_PREINSCRIPCION", "CARNET_UN", "PUNTAJE_ADMISION"
+                ]
+            }
+        }
+    },
+    "102": {
+        "expected_sheets": {
+            "RE_ACT_PER_TABLA_DE_DATOS.xlsx": ["Sheet1", "Sheet2"],
+            "BLQ_Causas_Administrativas_RE_EST_BLQ_PER_TABLA_DE_DATOS.xlsx": ["Sheet1", "Sheet2"]
+        },
+        "expected_columns": {
+            "RE_ACT_PER_TABLA_DE_DATOS.xlsx": {
+                "Sheet2": [
+                    "SEDE", "COD_FACULTAD", "FACULTAD", "COD_PLAN", "PLAN", "CONVENIO_PLAN",
+                    "COD_NIVEL", "NIVEL", "HIST_ACAD", "AVANCE_CARRERA", "DOCUMENTO", "NOMBRES",
+                    "APELLIDO1", "APELLIDO2", "NOMBRES_APELLIDOS", "COD_ACCESO", "ACCESO",
+                    "COD_SUBACCESO", "SUBACCESO", "CONVOCATORIA", "APERTURA", "T_DOCUMENTO",
+                    "GENERO", "EMAIL", "USUARIO", "CODIGO", "FECHA_NACIMIENTO", "EDAD",
+                    "NUMERO_MATRICULAS", "PAPA", "PROME_ACADE", "PBM_CALCULADO", "ESTRATO",
+                    "CORREO_PERSONAL", "TELEFONO1", "TELEFONO2", "DIRECCION", "COD_DEPTO_RESIDENCIA",
+                    "DEPTO_RESIDENCIA", "COD_MUN_RESIDENCIA", "MUNICIPIO_RESIDENCIA", "COD_PROVINCIA",
+                    "PROVINCIA_NACIMIENTO", "COD_MINICIPIO", "MUNICIPIO_NACIMIENTO", "COD_NACIONALIDAD",
+                    "PAIS-NACIONALIDAD", "VICTIMAS_DEL_CONFLICTO", "DISCAPACIDAD", "NOMBRE_COLEGIO",
+                    "CARACTER_COLEGIO", "NOMBRE_MADRE", "TELEFONO_MADRE", "NOMBRE_PADRE", "TELEFONO_PADRE",
+                    "DIRECCION_FAM", "TELEFONO1_FAM", "TELEFONO2_FAM", "CORREO_PERSONAL_FAM",
+                    "COD_DEPTO_RESIDENCIA_FAM", "DEPTO_RESIDENCIA_FAM", "COD_MUN_RESIDENCIA_FAM",
+                    "MUNICIPIO_RESIDENCIA_FAM", "FECHA_CARGA_PREINSCRIPCION", "COD_NODO_INICIO",
+                    "NODO_INICIO", "CARNET_UN", "PUNTAJE_ADMISION"
+                ]
+            },
+            "BLQ_Causas_Administrativas_RE_EST_BLQ_PER_TABLA_DE_DATOS.xlsx":{
+                "Sheet2":  [
+                    "COD_SEDE", "SEDE", "COD_FACULTAD", "FACULTAD", "COD_PROG_CURRICULAR", 
+                    "DESC_PROG_CURRICULAR", "COD_PLAN", "PLAN", "CONVENIO_PLAN", 
+                    "HIST_ACADEMICA", "NIVEL", "TIPO_NIVEL", "CONVOCATORIA", "DOCUMENTO", 
+                    "APERTURA", "DOCUMENTO_ANTERIOR", "EMAIL", "APELLIDO1", "APELLIDO2", 
+                    "NOMBRES", "COD_ACCESO", "ACCESO", "COD_SUBACCESO", "SUBACCESO", 
+                    "TIPO", "COD_BLOQUEO", "BLOQUEO", "FECHA", "PERIODO_BLOQUEO", 
+                    "CAUSA_ACTIVA", "GENERO", "ESTRATO", "MODACADEMICA", "DEPTO_PROCEDENCIA", 
+                    "MUNICIPIO_PROCEDENCIA", "NUM_MATRICULAS", "PAPA_ACTUAL", 
+                    "PROM_ACADEMICO_ACTUAL", "PERIODO_PROMEDIO", "COD_NODO_INICIO", 
+                    "NODO_INICIO", "COD_DESBLOQUEO", "CAUSA_DESBLOQUEO", "FECHA_DESBLOQUEO", 
+                    "PERIODO_DESBLOQUEO", "PBM", "PUNTAJE_ADMISION", "EDAD"
+                ]
+            }
+        }
+    },
+    "103":{
+        "expected_sheets": {
+            "RE_ACT_PER_TABLA_DE_DATOS.xlsx": ["Sheet1", "Sheet2"],
+            "BLQ_Causas_Academicas_RE_EST_BLQ_PER_TABLA_DE_DATOS.xlsx": ["Sheet1", "Sheet2"],
+            "RE_MAT_PAV_PAP_TABLA_DE_DATOS.xlsx": ["Sheet1", "Sheet2"],
+            "RE_MAT_PER_TABLA_DE_DATOS.xlsx": ["Sheet1", "Sheet2"]
+        },
+        "expected_columns": {
+            "RE_ACT_PER_TABLA_DE_DATOS.xlsx": {
+                "Sheet2": [
+                    "SEDE", "COD_FACULTAD", "FACULTAD", "COD_PLAN", "PLAN", "CONVENIO_PLAN",
+                    "COD_NIVEL", "NIVEL", "HIST_ACAD", "AVANCE_CARRERA", "DOCUMENTO", "NOMBRES",
+                    "APELLIDO1", "APELLIDO2", "NOMBRES_APELLIDOS", "COD_ACCESO", "ACCESO",
+                    "COD_SUBACCESO", "SUBACCESO", "CONVOCATORIA", "APERTURA", "T_DOCUMENTO",
+                    "GENERO", "EMAIL", "USUARIO", "CODIGO", "FECHA_NACIMIENTO", "EDAD",
+                    "NUMERO_MATRICULAS", "PAPA", "PROME_ACADE", "PBM_CALCULADO", "ESTRATO",
+                    "CORREO_PERSONAL", "TELEFONO1", "TELEFONO2", "DIRECCION", "COD_DEPTO_RESIDENCIA",
+                    "DEPTO_RESIDENCIA", "COD_MUN_RESIDENCIA", "MUNICIPIO_RESIDENCIA", "COD_PROVINCIA",
+                    "PROVINCIA_NACIMIENTO", "COD_MINICIPIO", "MUNICIPIO_NACIMIENTO", "COD_NACIONALIDAD",
+                    "PAIS-NACIONALIDAD", "VICTIMAS_DEL_CONFLICTO", "DISCAPACIDAD", "NOMBRE_COLEGIO",
+                    "CARACTER_COLEGIO", "NOMBRE_MADRE", "TELEFONO_MADRE", "NOMBRE_PADRE", "TELEFONO_PADRE",
+                    "DIRECCION_FAM", "TELEFONO1_FAM", "TELEFONO2_FAM", "CORREO_PERSONAL_FAM",
+                    "COD_DEPTO_RESIDENCIA_FAM", "DEPTO_RESIDENCIA_FAM", "COD_MUN_RESIDENCIA_FAM",
+                    "MUNICIPIO_RESIDENCIA_FAM", "FECHA_CARGA_PREINSCRIPCION", "COD_NODO_INICIO",
+                    "NODO_INICIO", "CARNET_UN", "PUNTAJE_ADMISION"
+                ]
+            },
+            "RE_MAT_PAV_PAP_TABLA_DE_DATOS.xlsx": {
+                "Sheet2": [
+                    "SEDE", "COD_FACULTAD", "FACULTAD", "COD_PLAN", "PLAN", "CONVENIO_PLAN",
+                    "HIS_ACAD", "DOCUMENTO", "NOMBRES_APELLIDOS", "EMAIL", "COD_ACCESO",
+                    "ACCESO", "COD_SUBACCESO", "SUBACCESO", "PAPA", "PROMEDIO_ACADEMICO",
+                    "PROMEDIO_GRADUADO", "AVANCE_CARRERA", "BLOQUEADO", "CERRADO",
+                    "PERIODO_ADMISION", "PERIODO_APERTURA"
+                ]
+                
+            },
+            "RE_MAT_PER_TABLA_DE_DATOS.xlsx":{
+                "Sheet2": [
+                    "PERIODO", "PERIODO_BIENESTAR", "COD_SEDE", "SEDE", "COD_FACULTAD", "FACULTAD",
+                    "COD_PROGRAMA_CURRICULAR", "PROGRAMA_CURRICULAR", "COD_UAB", "UAB", "COD_PLAN",
+                    "PLAN", "CONVENIO_PLAN", "TIPO_NIVEL", "COD_NIVEL", "NIVEL", "NOMBRES",
+                    "APELLIDO1", "APELLIDO2", "T_DOCUMENTO", "DOCUMENTO", "EXPEDIENTE", "CONVOCATORIA",
+                    "APERTURA", "COD_ACCESO", "ACCESO", "COD_SUBACCESO", "SUBACCESO", "MATRICULADO",
+                    "CAUSA_BLOQUEO", "FECHA_NACIMIENTO", "EDAD", "COD_ESTADO_CIVIL", "ESTADO_CIVIL",
+                    "SEXO_LEGAL", "GENERO", "LOGIN", "CORREO", "COD_DEPARTAMENTO_RESIDENCIA",
+                    "DEPARTAMENTO_RESIDENCIA", "COD_MUNICIPIO_RESIDENCIA", "MUNICIPIO_RESIDENCIA",
+                    "DIRECCION_RESIDENCIA", "TEL_RESIDENCIA", "COD_DEPARTAMENTO_PROCEDENCIA",
+                    "DEPARTAMENTO_PROCEDENCIA", "COD_MUNICIPIO_PROCEDENCIA", "MUNICIPIO_PROCEDENCIA",
+                    "DIRECCION_PROCEDENCIA", "TEL_PROCEDENCIA", "EXTRANJERO", "COD_PAIS_NACIMIENTO",
+                    "PAIS_NACIMIENTO", "COD_DEPARTAMENTO_NACIMIENTO", "DEPARTAMENTO_NACIMIENTO",
+                    "COD_MUNICIPIO_NACIMIENTO", "MUNICIPIO_NACIMIENTO", "ESTRATO", "EPS", "RH",
+                    "COD_ETNIA", "ETNIA", "PBM", "MATRICULAS", "VALOR_MATRICULA", "VLR_PAGADO",
+                    "PERIODO_RECIBO", "TIPCOLEGIO", "MODACADEMICA", "NOMBRE_COLEGIO", "DIRECCION_COLEGIO",
+                    "COD_DEPARTAMENTO_COLEGIO", "DEPARTAMENTO_COLEGIO", "COD_MUNICIPIO_COLEGIO",
+                    "MUNICIPIO_COLEGIO", "ANO_TERMINACION_COLEGIO", "NODO_INICIO", "NUMERO_HIJOS",
+                    "INGRESOS_FAMILIARES", "PENSION_COLEGIO", "CARACTER_COLEGIO", "ESTRATO_VIVIENDA",
+                    "LUGAR_RESIDENCIA", "PROPIEDAD_VIVIENDA", "PROM_ACADEMICO_ACTUAL", "PAPA_PERIODO",
+                    "FECHA_CARGA_PREINSCRIPCION", "CARNET_UN", "PUNTAJE_ADMISION"
+                ]
+            },
+            "BLQ_Causas_Academicas_RE_EST_BLQ_PER_TABLA_DE_DATOS.xlsx":{
+                "Sheet2":  [
+                    "COD_SEDE", "SEDE", "COD_FACULTAD", "FACULTAD", "COD_PROG_CURRICULAR", 
+                    "DESC_PROG_CURRICULAR", "COD_PLAN", "PLAN", "CONVENIO_PLAN", 
+                    "HIST_ACADEMICA", "NIVEL", "TIPO_NIVEL", "CONVOCATORIA", "DOCUMENTO", 
+                    "APERTURA", "DOCUMENTO_ANTERIOR", "EMAIL", "APELLIDO1", "APELLIDO2", 
+                    "NOMBRES", "COD_ACCESO", "ACCESO", "COD_SUBACCESO", "SUBACCESO", 
+                    "TIPO", "COD_BLOQUEO", "BLOQUEO", "FECHA", "PERIODO_BLOQUEO", 
+                    "CAUSA_ACTIVA", "GENERO", "ESTRATO", "MODACADEMICA", "DEPTO_PROCEDENCIA", 
+                    "MUNICIPIO_PROCEDENCIA", "NUM_MATRICULAS", "PAPA_ACTUAL", 
+                    "PROM_ACADEMICO_ACTUAL", "PERIODO_PROMEDIO", "COD_NODO_INICIO", 
+                    "NODO_INICIO", "COD_DESBLOQUEO", "CAUSA_DESBLOQUEO", "FECHA_DESBLOQUEO", 
+                    "PERIODO_DESBLOQUEO", "PBM", "PUNTAJE_ADMISION", "EDAD"
+                ]
+            }
+        }
+    }
+}
