@@ -501,7 +501,7 @@ def home_unal_lee():
         session['path_template'] =  'acompanamiento/home_acmp_user.html'
         session['servicio'] = 'unal_lee'
         session['file'] = 'unal_lee.xlsx'
-        session['link'] = 'https://lookerstudio.google.com/embed/reporting/8d30aab2-6ef2-4abe-bf55-18fbe1c6dfec/page/p_xb12c0l57c'
+        session['link'] = 'https://lookerstudio.google.com/embed/reporting/d21f07b1-c4a9-4b73-8502-211c48dea73e/page/p_xb12c0l57c'
         session['table'] = 'acmp_1' 
         # Ayuda:
         session['msjhelp1'] = "El archivo (o archivos) de subida debe tener el nombre de " + " ".join(session['required_files'])
@@ -573,7 +573,7 @@ def home_focad():
         session['required_files'] = ['focad.xlsx']
         session['download_file'] =  ['focad.xlsx']
         session['path_template'] =  'acompanamiento/home_acmp_user.html'
-        session['link'] = 'https://lookerstudio.google.com/embed/reporting/027428c4-e284-43db-b282-91391089db67/page/p_d86dtu1gjd'
+        session['link'] = 'https://lookerstudio.google.com/embed/reporting/42612735-90c1-417e-9c02-078ff1a2a7f2/page/p_md4y6ft88c'
         session['table'] = 'acmp_3' 
         session['servicio'] = 'focad'
         session['file'] = 'focad.xlsx'
@@ -609,7 +609,7 @@ def home_catedra():
         session['required_files'] = ['catedra.xlsx']
         session['download_file'] =  ['catedra.xlsx']
         session['path_template'] =  'acompanamiento/home_acmp_user.html'
-        session['link'] = 'https://lookerstudio.google.com/embed/reporting/3c3d77df-3c41-4d81-914e-8d4cf050f749/page/p_erp7w9t88c'
+        session['link'] = 'https://lookerstudio.google.com/embed/reporting/64570eca-4cde-4244-ad9b-a51b19c8f8ab/page/p_erp7w9t88c'
         session['table'] = 'acmp_4' 
         session['servicio'] = 'catedra'
         session['file'] = 'catedra.xlsx'
@@ -646,7 +646,7 @@ def home_tutorias_y_geas():
         session['required_files'] = ['geas_tutorias.xlsx']
         session['download_file'] =  ['geas_tutorias.xlsx']
         session['path_template'] =  'acompanamiento/home_acmp_user.html'
-        session['link'] = 'https://lookerstudio.google.com/embed/reporting/0d0ef51a-344a-49bf-86bd-10a60dc2b326/page/p_zvpkx61gjd'
+        session['link'] = 'https://lookerstudio.google.com/embed/reporting/8e7cb7fe-0e13-4346-9981-fd0c89167847/page/p_xevbmru88c'
         session['table'] = 'acmp_5'
         session['servicio'] = 'tutorias_y_geas'
         session['file'] = 'geas_tutorias.xlsx'
@@ -685,7 +685,7 @@ def home_espa():
         session['required_files'] = ['espa.xlsx']
         session['download_file'] =  ['espa.xlsx']
         session['path_template'] =  'acompanamiento/home_acmp_user.html'
-        session['link'] = 'https://lookerstudio.google.com/embed/reporting/2dd64d86-de94-4d0c-8ef0-68d542542a0b/page/p_bk73ka2gjd'
+        session['link'] = 'https://lookerstudio.google.com/embed/reporting/96a83c30-e2e7-4f0c-9b4b-cb3c759f0f67/page/p_8qbh5yu88c'
         session['table'] = 'acmp_6' 
         # Ayuda:
         session['servicio'] = 'espa'
@@ -724,7 +724,7 @@ def home_utp():
         session['required_files'] = ['utp.xlsx']
         session['download_file'] =  ['utp.xlsx']
         session['path_template'] =  'acompanamiento/home_acmp_user.html'
-        session['link'] = 'https://lookerstudio.google.com/embed/reporting/4ffb220e-3f1f-4301-b9ef-ec1b137b6023/page/p_0l4nnd2gjd'
+        session['link'] = 'https://lookerstudio.google.com/embed/reporting/06546943-1f63-4415-8b31-7712dd244fda/page/p_yy69t4li8c'
         session['table'] = 'acmp_7' 
         # Ayuda:
         session['servicio'] = 'utp'
@@ -776,7 +776,7 @@ def home_stem_informe_1():
         session['required_files'] = ['datos_capacitaciones_stem.xlsx', 'datos_manuales_stem.xlsx', 'datos_form_stem.xlsx']
         session['download_file'] =  ['stem.xlsx']
         session['path_template'] =  'stem/home_acmp_user.html'
-        session['link'] = 'https://datastudio.google.com/embed/reporting/fd110830-277a-427a-9f13-749f9e487b85/page/ifk9C'
+        session['link'] = 'https://lookerstudio.google.com/embed/reporting/66aeb297-914e-4b37-9ae0-1d116433ab90/page/p_izgj29srcd'
         session['table'] = "stem_3" # table SQL
         session['servicio'] = 'stem_servicios'
         session['file'] = 'stem.xlsx'
@@ -824,7 +824,7 @@ def home_taller_intracatedra():
         session['download_file'] =  ['taller_intracatedra.xlsx']
 
         session['path_template'] =  'psl/home_acmp_user.html'
-        session['link'] = 'https://lookerstudio.google.com/embed/reporting/93ddda00-2fa6-4f1a-a105-02ff350242fd/page/p_kk6pokq38c'
+        session['link'] = 'https://lookerstudio.google.com/embed/reporting/c14f20a8-4b67-4809-b58c-63723ef6ef93/page/p_kk6pokq38c'
         session['table'] = 'psl_1'
 
         
@@ -865,7 +865,7 @@ def home_actividades_voluntarias():
         session['download_file'] =  ['actividades_voluntarias.xlsx']
 
         session['path_template'] =  'psl/home_acmp_user.html'
-        session['link'] = 'https://lookerstudio.google.com/embed/reporting/455955bd-dabf-44d6-b301-8cd770917d41/page/p_a132dfui8c'
+        session['link'] = 'https://lookerstudio.google.com/embed/reporting/aab6b809-6c57-42ca-a659-d716d0305431/page/p_a132dfui8c'
         session['table'] = 'psl_2'
 
         session['servicio'] = 'Actividades voluntarias'
@@ -963,7 +963,7 @@ def home_sede_bloq_admin():
         session['download_file'] =  ['sede_manizales' + '.xlsx']
 
         session['path_template'] =  'sede/home_acmp_user.html'
-        session['link'] = 'https://lookerstudio.google.com/embed/reporting/57e45d51-13a7-4292-af97-d94af2ede99a/page/p_t5o24mhx7c'
+        session['link'] = 'https://lookerstudio.google.com/embed/reporting/57e45d51-13a7-4292-af97-d94af2ede99a/page/p_bkke747r7c'
         session['table'] = 'sede_2'
 
         session['servicio'] = 'Reporte Bloqueados casusas administrativas'
@@ -1007,7 +1007,7 @@ def home_sede_bloq_academ():
         session['download_file'] =  ['sede_manizales' + '.xlsx']
 
         session['path_template'] =  'sede/home_acmp_user.html'
-        session['link'] = 'https://lookerstudio.google.com/embed/reporting/57e45d51-13a7-4292-af97-d94af2ede99a/page/p_wxx6hnhx7c'
+        session['link'] = 'https://lookerstudio.google.com/embed/reporting/57e45d51-13a7-4292-af97-d94af2ede99a/page/p_bkke747r7c'
         session['table'] = 'sede_3'
 
         session['servicio'] = 'Reporte Bloqueados casusas academicas'
@@ -1129,7 +1129,7 @@ def home_autoeval_analitica():
         session['path_template'] =  'autoeval/home_acmp_user.html'
         session['servicio'] = 'autoeval'
         session['file'] = 'autoeval.xlsx'
-        session['link'] = 'https://lookerstudio.google.com/embed/reporting/83c15d71-0c34-48d8-9011-e2159c1ff9ca/page/p_3gq3hfnr8c'
+        session['link'] = 'https://lookerstudio.google.com/embed/reporting/0cc62520-898b-4c05-88bf-f113478af848/page/p_3gq3hfnr8c'
         session['table'] = 'autoeval_1' 
         # Ayuda:
         session['msjhelp1'] = "El archivo (o archivos) de subida debe tener el nombre de " + " ".join(session['required_files'])
@@ -1397,7 +1397,7 @@ def generar():
                 # DF:
                 df_ppl, df = MODEL_SERVICIOS.make_service2pss(name_pss, name_load, name_pss2, name_save, df_historico)
                 # cambiar modulo servicios de aca para abajo.
-                MODEL_SERVICIOS.write_google_sheet(df, 'servicio', 'REPORTES_DAMA', 'ACMP_1')
+                MODEL_SERVICIOS.write_google_sheet(df, 'servicio', my_config_constants['name_file_gsheet_servicios_dama'], session['table'])
                 flash('Cruce Realizado.')
                 # Actualizar fecha
                 now = datetime.now()
@@ -1465,7 +1465,7 @@ def generar():
                 # DF:
                 df_ppl, df = MODEL_SERVICIOS.make_service2pss(name_pss, name_load, name_pss2, name_save, df_historico)
                 # cambiar modulo servicios de aca para abajo.
-                MODEL_SERVICIOS.write_google_sheet(df, 'servicio', 'REPORTES_DAMA', 'ACMP_3')
+                MODEL_SERVICIOS.write_google_sheet(df, 'servicio', my_config_constants['name_file_gsheet_servicios_dama'], session['table'])
                 flash('Cruce Realizado.')
                 # Actualizar fecha
                 now = datetime.now()
@@ -1502,7 +1502,7 @@ def generar():
                 # DF:
                 df_ppl, df = MODEL_SERVICIOS.make_service2pss(name_pss, name_load, name_pss2, name_save, df_historico)
                 # cambiar modulo servicios de aca para abajo.
-                MODEL_SERVICIOS.write_google_sheet(df, 'servicio', 'REPORTES_DAMA', 'ACMP_4')
+                MODEL_SERVICIOS.write_google_sheet(df, 'servicio', my_config_constants['name_file_gsheet_servicios_dama'], session['table'])
                 flash('Cruce Realizado.')
                 # Actualizar fecha
                 now = datetime.now()
@@ -1536,7 +1536,7 @@ def generar():
                 # DF:
                 df_ppl, df = MODEL_SERVICIOS.make_service2pss(name_pss, name_load, name_pss2, name_save, df_historico)
                 # cambiar modulo servicios de aca para abajo.
-                MODEL_SERVICIOS.write_google_sheet(df, 'servicio', 'REPORTES_DAMA', 'ACMP_5')
+                MODEL_SERVICIOS.write_google_sheet(df, 'servicio', my_config_constants['name_file_gsheet_servicios_dama'], session['table'])
                 flash('Cruce Realizado.')
                 # Actualizar fecha
                 now = datetime.now()
@@ -1573,7 +1573,7 @@ def generar():
                 # DF:
                 df_ppl, df = MODEL_SERVICIOS.make_service2pss(name_pss, name_load, name_pss2, name_save, df_historico)
                 # cambiar modulo servicios de aca para abajo.
-                MODEL_SERVICIOS.write_google_sheet(df, 'servicio', 'REPORTES_DAMA', 'ACMP_6')
+                MODEL_SERVICIOS.write_google_sheet(df, 'servicio', my_config_constants['name_file_gsheet_servicios_dama'], session['table'])
                 flash('Cruce Realizado.')
                 # Actualizar fecha
                 now = datetime.now()
@@ -1608,7 +1608,7 @@ def generar():
                 # DF:
                 df_ppl, df = MODEL_SERVICIOS.make_serviceUTP(name_pss, name_load, name_pss2, name_save, df_historico)
                 # cambiar modulo servicios de aca para abajo.
-                MODEL_SERVICIOS.write_google_sheet(df, 'servicio', 'REPORTES_DAMA', 'ACMP_7')
+                MODEL_SERVICIOS.write_google_sheet(df, 'servicio', my_config_constants['name_file_gsheet_servicios_dama'], session['table'])
                 flash('Cruce Realizado.')
                 # Actualizar fecha
                 now = datetime.now()
@@ -1661,7 +1661,7 @@ def generar():
                 # cambiar modulo servicios de aca para abajo.
                 print("====== ANTES DE ESCRIBIR ===================")
                 print(df.info())
-                MODEL_SERVICIOS.write_google_sheet(df, 'servicio', 'REPORTES_DAMA', 'PSL_2')
+                MODEL_SERVICIOS.write_google_sheet(df, 'servicio', my_config_constants['name_file_gsheet_servicios_dama'], session['table'])
                 flash('Cruce Realizado.')
                 # Actualizar fecha
                 now = datetime.now()
@@ -2100,7 +2100,7 @@ def generar():
             df = df.drop(columns=["index"])
             df = df.filter(regex='^(?!Unnamed:).', axis=1)
 
-            MODEL_SERVICIOS.write_google_sheet(df, 'servicio', 'REPORTES_DAMA', 'PSL_1')
+            MODEL_SERVICIOS.write_google_sheet(df, 'servicio', my_config_constants['name_file_gsheet_servicios_dama'], session['table'])
             flash('Cruce Realizado.')
             # Actualizar fecha
             now = datetime.now()
@@ -2164,6 +2164,7 @@ def generar():
             """
             
             # cambiar modulo servicios de aca para abajo:
+            # , my_config_constants['name_file_gsheet_servicios_dama'], session['table']
             #MODEL_SERVICIOS.write_google_sheet(df, 'servicio', 'REPORTES_DAMA', 'STEM_1')
             
             # QUEDA POR HACER COMPATIBLES LAS DOS TABLAS... PERO DE LA MANO DEL DASHBOARD 
@@ -2228,9 +2229,6 @@ def generar():
                 return json.dumps({'status':'OK'})
             
 
-        
-        
-    
 
 # DESCARGAR:
 @app.route('/descargar/<path:filename>', methods=['POST'])
