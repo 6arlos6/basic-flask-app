@@ -2189,9 +2189,10 @@ def generar():
         # Autoevaluacion:
         if session['report'] == 111: 
                 # Archivos Requeridos:
+                # upload_folder
                 # src\data\autoeval\subidos\autoeval.xlsx
-                name_load = os.path.join('/home/Analisis/basic-flask-app/src/data','autoeval','subidos','autoeval.xlsx')
-                name_save = os.path.join('/home/Analisis/basic-flask-app/src/data','autoeval','generados', 'autoeval.xlsx')
+                name_load = os.path.join(my_config_constants['name_file_gsheet_sede'],'subidos','autoeval.xlsx')
+                name_save = os.path.join(my_config_constants['name_file_gsheet_sede'],'autoeval','generados', 'autoeval.xlsx')
                 
                 df_historico = ModelUser.get_all_table(db, session["table"])
                 #df_historico = pd.DataFrame()
@@ -2207,6 +2208,9 @@ def generar():
                 df_ppl = df_ppl.fillna("")
 
                 # Guardar en sheet
+                MODEL_SERVICIOS.write_google_sheet(df_ppl, 'servicio', my_config_constants['name_file_gsheet_gestion_curricular'], "Hoja 1")
+                MODEL_SERVICIOS.write_google_sheet(df_historico, 'servicio', my_config_constants['name_file_gsheet_gestion_curricular'], session["table"])
+                
                 # Analisar esto.....
                 #MODEL_SERVICIOS.write_google_sheet(df, 'servicio', 'REPORTES_DAMA', 'ACMP_1')
                 #MODEL_SERVICIOS.write_google_sheet(df_ppl, 'servicio', 'GC_def', 'Hoja 1', w=0)
@@ -2344,7 +2348,9 @@ def delete(reg, my_user, date):
             df_historico = df_historico_init[cols_gsh]
             print("==========INFO TO ACTUALIZAR =============")
             print(df_historico.info())
-            
+        
+        elif session['report'] == 111:
+            google_sheet_file = my_config_constants['name_file_gsheet_gestion_curricular']
         else:
             type_service = 'servicio'
             google_sheet_file = my_config_constants['name_file_gsheet_servicios_dama']
