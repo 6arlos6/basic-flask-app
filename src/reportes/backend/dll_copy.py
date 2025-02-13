@@ -9,6 +9,9 @@ from difflib import get_close_matches
 from datetime import datetime
 import re
 
+
+from src.reportes.backend.config_constants import my_config_constants
+
 class ExcelPreprocessMain:
   def __init__(self, path_gen):
     self.path = path_gen
@@ -1716,17 +1719,17 @@ cols_hoja_1_oficial = ['PROGRAMA',
 'FECHA_ACREDITACIÓN',
 'AÑOS_ACREDITACIÓN_OTORGADOS',
 'VENCIMIENTO_ACREDITACIÓN',
-'Levantamiento de información',
-'Aplicación de encuestas',
-'Análisis de Información',
-'Construcción de juicios de valor',
-'Taller de Autoevaluación',
-'Formulación del plan de mejoramiento',
-'Aval de Consejo de Facultad',
-'Radicación ante el Consejo Nacional de Acreditación',
-'Visita de Evaluación Externa',
-'Informe Preliminar de Pares',
-'Resolución de Acreditación',
+'Levantamiento_de_información',
+'Aplicación_de_encuestas',
+'Análisis_de_Información',
+'Construcción_de_juicios_de_valor',
+'Taller_de_Autoevaluación',
+'Formulación_del_plan_de_mejoramiento',
+'Aval_de_Consejo_de_Facultad',
+'Radicación_ante_el_Consejo_Nacional_de_Acreditación',
+'Visita_de_Evaluación_Externa',
+'Informe_Preliminar_de_Pares',
+'Resolución_de_Acreditación',
 'PORCENTAJE_TOTAL',
 'PERIODO_REPORTE',
 'URL',
@@ -1748,17 +1751,17 @@ cols_hoja_2_oficial = ['PROGRAMA',
 'FECHA_ACREDITACIÓN',
 'AÑOS_ACREDITACIÓN_OTORGADOS',
 'VENCIMIENTO_ACREDITACIÓN',
-'Levantamiento de información',
-'Aplicación de encuestas',
-'Análisis de Información',
-'Construcción de juicios de valor',
-'Taller de Autoevaluación',
-'Formulación del plan de mejoramiento',
-'Aval de Consejo de Facultad',
-'Radicación ante el Consejo Nacional de Acreditación',
-'Visita de Evaluación Externa',
-'Informe Preliminar de Pares',
-'Resolución de Acreditación',
+'Levantamiento_de_información',
+'Aplicación_de_encuestas',
+'Análisis_de_Información',
+'Construcción_de_juicios_de_valor',
+'Taller_de_Autoevaluación',
+'Formulación_del_plan_de_mejoramiento',
+'Aval_de_Consejo_de_Facultad',
+'Radicación_ante_el_Consejo_Nacional_de_Acreditación',
+'Visita_de_Evaluación Externa',
+'Informe_Preliminar_de_Pares',
+'Resolución_de_Acreditación',
 'PORCENTAJE_TOTAL',
 'PERIODO_REPORTE',
 'URL',
@@ -1780,6 +1783,15 @@ porcentajes = {
 }
 
 from datetime import datetime # OJO CON ESTO
+import unicodedata
+
+def quitar_tildes(s):
+    return ''.join(c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn')
+
+def quitar_tildes_columnas(df):
+    df.columns = [quitar_tildes(col) for col in df.columns]
+    return df
+
 
 def main_autoeval(path_file_principal, df_historico):
   
@@ -1808,7 +1820,9 @@ def main_autoeval(path_file_principal, df_historico):
         except:
             pass
     df_principal['PORCENTAJE_TOTAL'][row] = int(round(s,3)*100)
-    
+  
+  df_principal = quitar_tildes_columnas(df_principal)
+  
   df_historico = pd.concat([df_principal, df_historico], ignore_index=True)
   
   return df_principal, df_historico
@@ -1898,11 +1912,12 @@ def causa_bloq(strr):
         s = "Supera tiempo maximo de permanencia."
     return s
 
-
+#from flask import session
 ## Inicializar la clase:
 # src\data\sede\subidos
-PATH_PRINCIPAL = os.path.join('/home/Analisis/basic-flask-app/src/data', 'sede', 'subidos') # SERVER
-MODEL_ADMIN = ExcelPreprocessMain(PATH_PRINCIPAL)
+path_main = my_config_constants["upload_folder"]
+#ATH_PRINCIPAL = os.path.join(path_main, session["path"], 'subidos') # SERVER
+#MODEL_ADMIN = ExcelPreprocessMain(PATH_PRINCIPAL)
 
 def inicializador_cols(PATH_PRINCIPAL_2, name_activos2, name_bloq_admin, name_bloq_academ, name_planes):  
   # III. CARGAR COLUMNAS:
@@ -1941,7 +1956,9 @@ def inicializador_cols(PATH_PRINCIPAL_2, name_activos2, name_bloq_admin, name_bl
   
   return col_out_main, col_out_hoja_2, col_out_hoja_3, df_planes
 
-def load_data_sede(name_activos, name_pav_pap, name_mat_per, name_est_bloq, name_matr_ant):
+def load_data_sede(PATH_PRINCIPAL, name_activos, name_pav_pap, name_mat_per, name_est_bloq, name_matr_ant):
+  
+    MODEL_ADMIN = ExcelPreprocessMain(PATH_PRINCIPAL)
     # Cargar base de datos activos (generado desde SIA):
     if name_activos is not None:
         df_activos = MODEL_ADMIN.load(name_activos, 1, 1)
@@ -1956,19 +1973,19 @@ def load_data_sede(name_activos, name_pav_pap, name_mat_per, name_est_bloq, name
 
     # Cargar reporte matriculados (generado desde SIA)
     if name_mat_per is not None:
-        df_mat_per = MODEL_ADMIN.load(name_mat_per, 1, 0)
+        df_mat_per = MODEL_ADMIN.load(name_mat_per, 1, 1)
     else:
         df_mat_per = ""
 
     # Cargar bloquados por causas administrativas (generado desde SIA)
     if name_est_bloq is not None:
-        df_est_bloq = MODEL_ADMIN.load(name_est_bloq, 0, 0)
+        df_est_bloq = MODEL_ADMIN.load(name_est_bloq, 1, 1)
     else:
         df_est_bloq = ""
 
     # Cargar bloquados por causas academicas
     if name_matr_ant is not None:
-        df_matriculados_ant = MODEL_ADMIN.load(name_matr_ant, 1, 0)
+        df_matriculados_ant = MODEL_ADMIN.load(name_matr_ant, 1, 1)
     else:
         df_matriculados_ant = ""
 

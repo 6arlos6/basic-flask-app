@@ -76,13 +76,6 @@ from src.reportes.backend.dll_copy import  check_repeat_main
 from src.reportes.backend.config_constants import my_config_constants
 from src.reportes.backend.dll_copy import format_column
 
-
-# Refactorin subir
-
-from src.reportes.backend.upload_files_refactoring import validate_filenames, save_files, validate_file_structure, load_period
-
-
-
 # ============================================================================
 # OBJETOS:
 # ============================================================================
@@ -920,7 +913,7 @@ def home_sede():
 def home_sede_matriculados():
     if session['rol'] == '10':
         session['back_url'] = url_for('home_sede_matriculados')
-        session['path'] =  os.path.join("sede","matriculados")
+        session['path'] =  os.path.join("sede")
         session['report'] = 101
         session['required_files'] = ['RE_ACT_PER_TABLA_DE_DATOS.xlsx',
                                      'RE_MAT_PAV_PAP_TABLA_DE_DATOS.xlsx',
@@ -963,7 +956,7 @@ def home_sede_matriculados():
 def home_sede_bloq_admin():
     if session['rol'] == '10':
         session['back_url'] = url_for('home_sede_bloq_admin')
-        session['path'] =  os.path.join("sede", "bloq_admin")
+        session['path'] =  os.path.join("sede")
         session['report'] = 102
         session['required_files'] = ['RE_ACT_PER_TABLA_DE_DATOS.xlsx',
                                      'BLQ_Causas_Administrativas_RE_EST_BLQ_PER_TABLA_DE_DATOS.xlsx']
@@ -1005,7 +998,7 @@ def home_sede_bloq_admin():
 def home_sede_bloq_academ():
     if session['rol'] == '10':
         session['back_url'] = url_for('home_sede_bloq_academ')
-        session['path'] =  os.path.join("sede", "bloq_academ")
+        session['path'] =  os.path.join("sede")
         session['report'] = 103
         session['required_files'] = ['RE_ACT_PER_TABLA_DE_DATOS.xlsx',
                                     'RE_MAT_PAV_PAP_TABLA_DE_DATOS.xlsx',
@@ -1168,37 +1161,60 @@ def home_autoeval_analitica():
 @app.route('/subir', methods=['POST'])
 @login_required
 def upload():
-    # Seleccionar archivos
-    uploaded_files = request.files.getlist("file[]") 
+    try:
+        # Cargar rango para caso psl -> extraer información de hojas de excel.
+        session['rango_psl'] = request.form["miInput"]
+    except:
+        pass
+    
+    try:
+        session["periodoReporte"] = request.form["periodoReporte"]
+    except:
+        pass
 
-    if not uploaded_files or (len(uploaded_files) == 1 and not uploaded_files[0].filename):
-        flash('No has seleccionado un archivo', 'error')
-        return redirect(session.get('back_url', '/'))
-
-    # Verificación de nombres de archivos
-    if not validate_filenames(uploaded_files, session):
-        flash('No subiste todos los archivos necesarios.', 'error')
-        return redirect(session.get('back_url', '/'))
-
-    # Guardar archivos en la carpeta correspondiente
-    filenames = save_files(uploaded_files, session, app)
-
-    # Comprobación de estructura para reportes específicos
-    if session.get('report') in [101, 102, 103]:
-        if not validate_file_structure(session, app):
-            pass
-            #return redirect(session.get('back_url', '/'))
-
-    # Extraer información de sesión según el rol del usuario
-    if session.get('rol') == str(10):
-        load_period(MODEL_ADMIN, session)
-        flash(f"Su periodo es = {session['periodoReporte']}.")
-    elif session.get('rol') == 5:
-        session['rango_psl'] = request.form.get("miInput")
-
+    uploaded_files = request.files.getlist("file[]") # Archivos.
+    if len(uploaded_files) == 1 and  uploaded_files[0].filename == '':
+        flash('No has seleccionado un archivo')
+        return redirect(session['back_url']) # pagina anterior
+    
+    # Este caso particular sucede para generar reporte 24 -> corregir, porque no puede ser
+    # particularizado en esta parte.
+    # No comprobar el reporte 52 de actividades voluntarias, mientras se definen
+    # los nombres que quedaran por defecto.
+    print("=====================================================")
+    print(session['report'] != 52)
+    if not(session['report'] == 24) and not(session['report'] == 52):
+        print("SI ENTRE")
+        file_names_upload = [file_u.filename  for file_u in uploaded_files]
+        list_check = [file in file_names_upload for file in session['required_files']]
+        for file in session['required_files']:
+            print(file_names_upload)
+            print(file, file in file_names_upload)
+        print("=====================================================")
+        print(list_check)
+        tf_upload = all(list_check)
+        #tf_upload = True
+        if tf_upload == False:
+            flash('Nombre de archivo incorrecto')
+            return redirect(session['back_url']) # pagina anterior
+    filenames = []
+    for file in uploaded_files:
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            path = session['path']
+            # Excluir psl actividades voluntarias
+            if session["report"] != 52:
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'],path,'subidos',filename))
+            else:
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'],path,'subidos','actividades_voluntarias',filename))
+            filenames.append(filename)
+        else:
+            flash(f'El archivo {file.filename} tiene una extension no permitida.')
     flash("Archivos subidos adecuadamente")
+    # This line is essential, store the data in session
     session['filenames'] = filenames
-    return redirect(session.get('back_url', '/'))
+    #return render_template('upload.html', filenames=filenames)
+    return redirect(session['back_url'])
 
 # GENERAR:
 @app.route('/generar', methods=['POST'])
@@ -1695,9 +1711,7 @@ def generar():
                 name_est_bloq = None
                 name_matr_ant = None
                 # Carga de archivos:
-                path_main = my_config_constants["upload_folder"]
-                PATH_PRINCIPAL = os.path.join(path_main, session["path"], 'subidos') # SERVER
-                df_activos, df_pav_pap, df_mat_per, _, _ = load_data_sede(PATH_PRINCIPAL, name_activos, name_pav_pap, name_mat_per, name_est_bloq, name_matr_ant)
+                df_activos, df_pav_pap, df_mat_per, _, _ = load_data_sede(name_activos, name_pav_pap, name_mat_per, name_est_bloq, name_matr_ant)
                 # Preprocesamiento de dfs: Matriculados:
                 df_planes, df_activos_discap, df_pav_pap_v2, df_mat_per_v2 = preprocessing_sede(df_planes, df_activos, 
                                                                                                     df_pav_pap, df_mat_per)
@@ -1732,11 +1746,8 @@ def generar():
                 df_matriculados_def = check_repeat_main(df_final, cols_gsh)
                 
                 # save reporte:
-                path_save = my_config_constants["upload_folder"]
-                path = session['path']
-                # uploads = os.path.join('data', path,'generados', filename)
-                # upload_folder
-                path_save = os.path.join(path_save, path, 'generados', session['download_file'][0])
+                path_save = my_config_constants["path_save_sede"]
+                path_save = os.path.join(path_save, session['download_file'][0])
                 df_matriculados_def.to_excel(path_save, index=False)
                 
                 # Cast df:
@@ -1814,10 +1825,7 @@ def generar():
                 name_est_bloq = os.path.join('BLQ_Causas_Administrativas_RE_EST_BLQ_PER_TABLA_DE_DATOS.xlsx')
                 name_matr_ant = None
                 
-                path_main = my_config_constants["upload_folder"]
-                PATH_PRINCIPAL = os.path.join(path_main, session["path"], 'subidos') # SERVER
-                
-                df_activos, df_pav_pap, df_mat_per, df_est_bloq, df_matriculados_ant = load_data_sede(PATH_PRINCIPAL, name_activos, name_pav_pap, name_mat_per, name_est_bloq, name_matr_ant)
+                df_activos, df_pav_pap, df_mat_per, df_est_bloq, df_matriculados_ant = load_data_sede(name_activos, name_pav_pap, name_mat_per, name_est_bloq, name_matr_ant)
                 
                 
                 df_pav_pap = None
@@ -1859,11 +1867,8 @@ def generar():
                 df_bloq_administrativas_def = check_repeat_main(df_final, cols_gsh)
                 
                 # save reporte:
-                path_save = my_config_constants["upload_folder"]
-                path = session['path']
-                # uploads = os.path.join('data', path,'generados', filename)
-                # upload_folder
-                path_save = os.path.join(path_save, path, 'generados', session['download_file'][0])
+                path_save = my_config_constants["path_save_sede"]
+                path_save = os.path.join(path_save, session['download_file'][0])
                 df_bloq_administrativas_def.to_excel(path_save, index=False)
                 
                 print("==================== SALIENDO DE CHECK REPEAT =============================")
@@ -1954,9 +1959,8 @@ def generar():
                 
                 
                 # HAY QUE PONER COMO FILE MATRICULADOS POR PERIODO ojo!
-                path_main = my_config_constants["upload_folder"]
-                PATH_PRINCIPAL = os.path.join(path_main, session["path"], 'subidos') # SERVER
-                df_activos, df_pav_pap, df_mat_per, df_est_bloq, df_matriculados_ant = load_data_sede(PATH_PRINCIPAL,name_activos, name_pav_pap, name_mat_per, name_est_bloq, name_matr_ant)
+                
+                df_activos, df_pav_pap, df_mat_per, df_est_bloq, df_matriculados_ant = load_data_sede(name_activos, name_pav_pap, name_mat_per, name_est_bloq, name_matr_ant)
                 
                 
                 
@@ -2006,11 +2010,8 @@ def generar():
                 print(df_bloq_academicas_def.info())
                 
                 # save reporte:
-                path_save = my_config_constants["upload_folder"]
-                path = session['path']
-                # uploads = os.path.join('data', path,'generados', filename)
-                # upload_folder
-                path_save = os.path.join(path_save, path, 'generados', session['download_file'][0])
+                path_save = my_config_constants["path_save_sede"]
+                path_save = os.path.join(path_save, session['download_file'][0])
                 df_bloq_academicas_def.to_excel(path_save, index=False)
                 
                 # Cast df:
@@ -2190,8 +2191,8 @@ def generar():
                 # Archivos Requeridos:
                 # upload_folder
                 # src\data\autoeval\subidos\autoeval.xlsx
-                name_load = os.path.join(my_config_constants['upload_folder'],'autoeval','subidos','autoeval.xlsx')
-                name_save = os.path.join(my_config_constants['upload_folder'],'autoeval','generados', 'autoeval.xlsx')
+                name_load = os.path.join(my_config_constants['name_file_gsheet_sede'],'subidos','autoeval.xlsx')
+                name_save = os.path.join(my_config_constants['name_file_gsheet_sede'],'autoeval','generados', 'autoeval.xlsx')
                 
                 df_historico = ModelUser.get_all_table(db, session["table"])
                 #df_historico = pd.DataFrame()
@@ -2350,8 +2351,6 @@ def delete(reg, my_user, date):
         
         elif session['report'] == 111:
             google_sheet_file = my_config_constants['name_file_gsheet_gestion_curricular']
-            df_historico = ModelUser.get_all_table(db, session["table"])
-            type_service = 'servicio'
         else:
             type_service = 'servicio'
             google_sheet_file = my_config_constants['name_file_gsheet_servicios_dama']
@@ -2394,17 +2393,6 @@ def down(reg, my_user, date):
 def down_date():
     table_service = session['table']
     df_dates = ModelUser.get_distinct_V2(db,  table_service) # poner el nombre de la tabla adecuada
-    print("===================================ffff")
-    print(df_dates.info())
-    print("===================================ffff")
-    print(df_dates["DATE"][0])
-    print("===================================ffff")
-    print("\n")
-    df_dates["DATE"] = pd.to_datetime(df_dates["DATE"], format="%m-%d-%Y, %H:%M:%S")
-    df_dates["DATE"] = df_dates["DATE"].dt.strftime("%d/%m/%Y %H:%M:%S")
-    df_dates['COUNT'] = df_dates['COUNT'].astype(str)
-    print(df_dates["DATE"][0])
-    #df_dates['DATE'] = df_dates['DATE'].apply(lambda x: x.isoformat())
     # actualizar web
     MODEL_SERVICIOS.write_google_sheet(df_dates,
                                        'servicio',
