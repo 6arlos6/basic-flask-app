@@ -1375,7 +1375,6 @@ def generar():
                 #df_historico = MODEL_SERVICIOS.get_google_sheet('servicio', 'REPORTES_DAMA', 'ACMP_1')
                 #df_historico = ModelUser.get_all_table(db, "acmp_1")
                 df_historico = ModelUser.get_all_table(db, session["table"])
-                #df_historico = pd.DataFrame()
                 print('HISTORICO ==================================================')
                 print(len(df_historico))
                 # DF:
@@ -1605,6 +1604,7 @@ def generar():
                 date_time = now.strftime("%m-%d-%Y, %H:%M:%S") # PONER HORA
                 df_ppl["DATE_UPDATE"] = date_time
                 df_ppl["USER"] = session['username']
+                # QUITAR UNAMED
                 msj = ModelUser.upload_df(db, df_ppl, "acmp_7")
                 
                 return json.dumps({'status':'OK'})
@@ -1672,41 +1672,53 @@ def generar():
                
                 # Cargar datos historicos:
                 df_historico = ModelUser.get_all_table(db, session["table"], report='delete_sede')
-                # Mostrar información de historico en consola:
+                
+                
                 print('HISTORICO ==================================================')
                 print(len(df_historico))
-                # Obtener el periodo:
+                
                 Rep = session["periodoReporte"]
                 # Mostrar:
                 print(Rep)
-                # Paths informes estaticos:
+                #Rep = "2014-20S"
+                
+                
+                #PATH_PRINCIPAL_2 = "src\data\static_data\sede"
                 PATH_PRINCIPAL_2 = my_config_constants["path_principal_2"]
                 name_activos2 = os.path.join('FACULTADES_MAIN_2022_2S.xlsx')
                 name_bloq_admin = os.path.join('FACULTADES_BLOQUEADOS_ADMINISTRATIVAS.xlsx')
                 name_bloq_academ = os.path.join('FACULTADES_BLOQUEADOS_ACADEMICAS.xlsx')
+                
+                    # from static data:
                 name_planes = os.path.join('Planes.xlsx')
-                # Pre proceso de datos estaticos:
+                
                 col_out_main, _, _, df_planes = inicializador_cols(PATH_PRINCIPAL_2, name_activos2, name_bloq_admin,
                                                                    name_bloq_academ, name_planes)
-                # Archivos necesarios para reporte: Matriculados:
+                
+                
+                
                 name_activos = os.path.join('RE_ACT_PER_TABLA_DE_DATOS.xlsx')
                 name_pav_pap = os.path.join('RE_MAT_PAV_PAP_TABLA_DE_DATOS.xlsx')
                 name_mat_per = os.path.join('RE_MAT_PER_TABLA_DE_DATOS.xlsx')
                 name_est_bloq = None
                 name_matr_ant = None
-                # Carga de archivos:
+                
                 path_main = my_config_constants["upload_folder"]
                 PATH_PRINCIPAL = os.path.join(path_main, session["path"], 'subidos') # SERVER
+                
                 df_activos, df_pav_pap, df_mat_per, _, _ = load_data_sede(PATH_PRINCIPAL, name_activos, name_pav_pap, name_mat_per, name_est_bloq, name_matr_ant)
-                # Preprocesamiento de dfs: Matriculados:
+                
+                
                 df_planes, df_activos_discap, df_pav_pap_v2, df_mat_per_v2 = preprocessing_sede(df_planes, df_activos, 
                                                                                                     df_pav_pap, df_mat_per)
-                # Hacer reporte: Matriculados:
+                
                 df_matriculados = main_matriculados(df_pav_pap_v2, df_mat_per_v2, df_planes,
                                                             df_activos_discap, col_out_main, periodo = Rep)
-                # Concatenar:
+                
+                
+                # concatenar:
                 df_final = pd.concat([df_historico, df_matriculados])
-                # Formato de columnas:
+                
                 cols_gsh = ["AVANCE_CARRERA",
                             "FACULTAD",
                             "PLAN",
@@ -1728,7 +1740,7 @@ def generar():
                             "NOMBRES",
                             "APELLIDO1",
                             "CORREO"]
-                # Check repetidos entre: df_final.
+                    
                 df_matriculados_def = check_repeat_main(df_final, cols_gsh)
                 
                 # save reporte:
@@ -1747,7 +1759,6 @@ def generar():
                 df_matriculados_def = format_column(df_matriculados_def, "PAPA", "to_float")
                 df_matriculados_def = format_column(df_matriculados_def, "AVANCE_CARRERA", "to_float")
                 
-                # cargar excel
                 MODEL_SERVICIOS.write_google_sheet(df_matriculados_def,
                                                    my_config_constants['type_gsheet_write_sede'],
                                                    my_config_constants['name_file_gsheet_sede'],
@@ -1755,11 +1766,14 @@ def generar():
                 
                 # Seleccionar solo reporte actual luego de quitar repetidos:
                 df_matriculados_def = df_matriculados_def[df_matriculados_def["PERIODO_REPORTE"] == Rep]
+                
                 # Actualizar excel: 
+                    
                 """
                 #NOTA: hace falta identificar si el ID de reporte y ID de usuario hacen problemas....
                 #por ahora todo bien y hay que atacar excel:
                 """
+                
                 # MODEL_SERVICIOS.write_google_sheet(df_matriculados_def, 'servicio', 'REPORTES_DAMA', 'STEM_1')
                 # Mensaje de exito:
                 
@@ -2211,8 +2225,7 @@ def generar():
                 MODEL_SERVICIOS.write_google_sheet(df_historico, 'servicio', my_config_constants['name_file_gsheet_gestion_curricular'], session["table"])
                 
                 # Analisar esto.....
-                #MODEL_SERVICIOS.write_google_sheet(df, 'servicio', 'REPORTES_DAMA', 'ACMP_1')
-                #MODEL_SERVICIOS.write_google_sheet(df_ppl, 'servicio', 'GC_def', 'Hoja 1', w=0)
+                #MODEL_SERVICIOS.write_google_sheet(df, 'servicio', 'GC_def', 'Hoja 1', w=0)
                 #MODEL_SERVICIOS.write_google_sheet(df_historico, 'servicio', 'GC_def', 'Hoja 2', w=0)
                 
                 flash('Cruce Realizado.')
@@ -2244,6 +2257,17 @@ def descargar(filename):
     except:
         flash("Hubo un error en encontrar los archivos.")
         return redirect(session['back_url'])
+
+@app.route('/descargar_plantilla/<filename>')
+@login_required
+def descargar_plantilla(filename):
+    try:
+        plantillas_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'plantillas')
+        return send_file(os.path.join(plantillas_dir, filename),
+                        as_attachment=True)
+    except Exception as e:
+        flash('Error al descargar el archivo: ' + str(e))
+        return redirect(request.referrer)
 
 # DELETE
 @app.route('/delete/<reg>/<my_user>/<date>', methods=['POST'])
