@@ -1751,6 +1751,7 @@ cols_hoja_2_oficial = ['PROGRAMA',
 'FECHA_ACREDITACIÓN',
 'AÑOS_ACREDITACIÓN_OTORGADOS',
 'VENCIMIENTO_ACREDITACIÓN',
+
 'Levantamiento_de_información',
 'Aplicación_de_encuestas',
 'Análisis_de_Información',
@@ -1762,6 +1763,7 @@ cols_hoja_2_oficial = ['PROGRAMA',
 'Visita_de_Evaluación Externa',
 'Informe_Preliminar_de_Pares',
 'Resolución_de_Acreditación',
+
 'PORCENTAJE_TOTAL',
 'PERIODO_REPORTE',
 'URL',
@@ -1769,17 +1771,17 @@ cols_hoja_2_oficial = ['PROGRAMA',
 'ACREDITACIÓN_ESTADO']
 
 porcentajes = {
-    'Levantamiento de información': 0.15,
-    'Aplicación de encuestas de percepción': 0.10,
-    'Análisis de información': 0.15,
-    'Juicios de valor': 0.10,
-    'Taller de Autoevaluación': 0.05,
-    'Formulación plan de mejoramiento': 0.15,
-    'Aval Consejo de Facultad': 0.04,
-    'Radicación ante el Consejo Nacional de Acreditación': 0.04,
-    'Visita de Evaluación Externa': 0.15,
-    'Informe Preliminar de Pares': 0.05,
-    'Resolución de Acreditación': 0.02
+    'Levantamiento_de_información': 0.15,
+    'Aplicación_de_encuestas': 0.10,
+    'Análisis_de_Información': 0.15,
+    'Construcción_de_juicios_de_valor': 0.10,
+    'Taller_de_Autoevaluación': 0.05,
+    'Formulación_del_plan_de_mejoramiento': 0.15,
+    'Aval_de_Consejo_de_Facultad': 0.04,
+    'Radicación_ante_el_Consejo_Nacional_de_Acreditación': 0.04,
+    'Visita_de_Evaluación Externa': 0.15,
+    'Informe_Preliminar_de_Pares': 0.05,
+    'Resolución_de_Acreditación': 0.02
 }
 
 from datetime import datetime # OJO CON ESTO
@@ -1814,11 +1816,18 @@ def main_autoeval(path_file_principal, df_historico):
     row_itr = df_principal.iloc[row,:]
     s = 0
     for key in porcentajes:
+        print("\n")
+        print("######################### Autoeval")
+        print("\n")
+        print("\n")
+        print(key)
         try: 
             if int(row_itr[key]) == 1:
                 s += porcentajes[key]
         except:
             pass
+        print("\n")
+        print("\n")
     df_principal['PORCENTAJE_TOTAL'][row] = int(round(s,3)*100)
   
   df_principal = quitar_tildes_columnas(df_principal)
