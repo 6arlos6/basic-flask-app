@@ -104,6 +104,33 @@
     </div>
 
     <div class=" shadow col-md-5 col-sm-12 center mt-1">
+        <!-- form para descargar plantillas -->
+        <h3 class="mb-3">Descargar Plantillas</h3>
+        <div class="alert alert-info mt-3">
+            Descargue las plantillas Excel necesarias para el reporte
+        </div>
+        <div id="plantillas-container">
+            <!-- Los archivos se listarán aquí dinámicamente -->
+        </div>
+        <script>
+            // Función para cargar la lista de plantillas
+            fetch('/list_plantillas')
+                .then(response => response.json())
+                .then(files => {
+                    const container = document.getElementById('plantillas-container');
+                    files.forEach(file => {
+                        const btn = document.createElement('a');
+                        btn.href = `/descargar_plantilla/${file}`;
+                        btn.className = 'btn btn-primary btn-block mb-2';
+                        btn.innerHTML = `<i class="fas fa-download"></i> ${file}`;
+                        container.appendChild(btn);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        </script>
+    </div>
+
+    <div class=" shadow col-md-5 col-sm-12 center mt-1">
         <!-- form para generar -->
         <h3 class="mb-5 mt-5">2. Generar reporte</h3>
 

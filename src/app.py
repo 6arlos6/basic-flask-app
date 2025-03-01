@@ -2258,16 +2258,31 @@ def descargar(filename):
         flash("Hubo un error en encontrar los archivos.")
         return redirect(session['back_url'])
 
+
 @app.route('/descargar_plantilla/<filename>')
 @login_required
 def descargar_plantilla(filename):
     try:
-        plantillas_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'plantillas')
+        plantillas_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'plantillas', session["path"])
         return send_file(os.path.join(plantillas_dir, filename),
                         as_attachment=True)
     except Exception as e:
         flash('Error al descargar el archivo: ' + str(e))
         return redirect(request.referrer)
+
+# Listar archivos de plantillas
+@app.route('/list_plantillas')
+@login_required
+def list_plantillas():
+    try:
+        plantillas_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'plantillas', session["path"])
+        if not os.path.exists(plantillas_dir):
+            os.makedirs(plantillas_dir)
+        files = [f for f in os.listdir(plantillas_dir) if f.endswith('.xlsx')]
+        return json.dumps(files)
+    except Exception as e:
+        return json.dumps([])
+
 
 # DELETE
 @app.route('/delete/<reg>/<my_user>/<date>', methods=['POST'])
