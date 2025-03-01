@@ -1704,137 +1704,101 @@ def concatenar_stem(df_formulario, df_manuales, df_capacitaciones):
 
 
 # =================== GESTION CURRICULAR ================================
-cols_hoja_1_oficial = ['PROGRAMA',
-'NIVEL',
-'FACULTAD',
-'ACTIVO',
-'VIGENTE',
-'CREACION',
-'DOCUMENTO_CREACIÓN',
-'APERTURA',
-'PRIMERA_COHORTE',
-'ACREDITADO_ACTUALMENTE',
-'ACREDITABLE',
-'RESOLUCIÓN_DE_ACREDITACIÓN_VIGENTE',
-'FECHA_ACREDITACIÓN',
-'AÑOS_ACREDITACIÓN_OTORGADOS',
-'VENCIMIENTO_ACREDITACIÓN',
-'Levantamiento_de_información',
-'Aplicación_de_encuestas',
-'Análisis_de_Información',
-'Construcción_de_juicios_de_valor',
-'Taller_de_Autoevaluación',
-'Formulación_del_plan_de_mejoramiento',
-'Aval_de_Consejo_de_Facultad',
-'Radicación_ante_el_Consejo_Nacional_de_Acreditación',
-'Visita_de_Evaluación_Externa',
-'Informe_Preliminar_de_Pares',
-'Resolución_de_Acreditación',
-'PORCENTAJE_TOTAL',
-'PERIODO_REPORTE',
-'URL',
-'EN_EAFA',
-'ACREDITACIÓN_ESTADO']
+from datetime import datetime  # OJO CON ESTO
+import unicodedata
+import pandas as pd
 
-cols_hoja_2_oficial = ['PROGRAMA',
-'NIVEL',
-'FACULTAD',
-'ACTIVO',
-'VIGENTE',
-'CREACION',
-'DOCUMENTO_CREACIÓN',
-'APERTURA',
-'PRIMERA_COHORTE',
-'ACREDITADO_ACTUALMENTE',
-'ACREDITABLE',
-'RESOLUCIÓN_DE_ACREDITACIÓN_VIGENTE',
-'FECHA_ACREDITACIÓN',
-'AÑOS_ACREDITACIÓN_OTORGADOS',
-'VENCIMIENTO_ACREDITACIÓN',
+# Función para quitar tildes y reemplazar la ñ por n
+def quitar_tildes(s):
+    s = unicodedata.normalize('NFD', s)
+    s = ''.join(c for c in s if unicodedata.category(c) != 'Mn')
+    return s.replace("Ñ", "N").replace("ñ", "n")
 
-'Levantamiento_de_información',
-'Aplicación_de_encuestas',
-'Análisis_de_Información',
-'Construcción_de_juicios_de_valor',
-'Taller_de_Autoevaluación',
-'Formulación_del_plan_de_mejoramiento',
-'Aval_de_Consejo_de_Facultad',
-'Radicación_ante_el_Consejo_Nacional_de_Acreditación',
-'Visita_de_Evaluación Externa',
-'Informe_Preliminar_de_Pares',
-'Resolución_de_Acreditación',
+# Listas de columnas sin tildes ni eñes
+cols_hoja_1_oficial = [
+    'PROGRAMA', 'NIVEL', 'FACULTAD', 'ACTIVO', 'VIGENTE', 'CREACION', 
+    'DOCUMENTO_CREACION', 'APERTURA', 'PRIMERA_COHORTE', 'ACREDITADO_ACTUALMENTE', 
+    'ACREDITABLE', 'RESOLUCION_DE_ACREDITACION_VIGENTE', 'FECHA_ACREDITACION', 
+    'ANOS_ACREDITACION_OTORGADOS', 'VENCIMIENTO_ACREDITACION', 'Levantamiento_de_informacion', 
+    'Aplicacion_de_encuestas', 'Analisis_de_Informacion', 'Construccion_de_juicios_de_valor', 
+    'Taller_de_Autoevaluacion', 'Formulacion_del_plan_de_mejoramiento', 
+    'Aval_de_Consejo_de_Facultad', 'Radicacion_ante_el_Consejo_Nacional_de_Acreditacion', 
+    'Visita_de_Evaluacion_Externa', 'Informe_Preliminar_de_Pares', 'Resolucion_de_Acreditacion', 
+    'PORCENTAJE_TOTAL', 'PERIODO_REPORTE', 'URL', 'EN_EAFA', 'ACREDITACION_ESTADO'
+]
 
-'PORCENTAJE_TOTAL',
-'PERIODO_REPORTE',
-'URL',
-'EN_EAFA',
-'ACREDITACIÓN_ESTADO']
+cols_hoja_2_oficial = [
+    'PROGRAMA', 'NIVEL', 'FACULTAD', 'ACTIVO', 'VIGENTE', 'CREACION', 
+    'DOCUMENTO_CREACION', 'APERTURA', 'PRIMERA_COHORTE', 'ACREDITADO_ACTUALMENTE', 
+    'ACREDITABLE', 'RESOLUCION_DE_ACREDITACION_VIGENTE', 'FECHA_ACREDITACION', 
+    'ANOS_ACREDITACION_OTORGADOS', 'VENCIMIENTO_ACREDITACION', 'Levantamiento_de_informacion', 
+    'Aplicacion_de_encuestas', 'Analisis_de_Informacion', 'Construccion_de_juicios_de_valor', 
+    'Taller_de_Autoevaluacion', 'Formulacion_del_plan_de_mejoramiento', 
+    'Aval_de_Consejo_de_Facultad', 'Radicacion_ante_el_Consejo_Nacional_de_Acreditacion', 
+    'Visita_de_Evaluacion_Externa', 'Informe_Preliminar_de_Pares', 'Resolucion_de_Acreditacion', 
+    'PORCENTAJE_TOTAL', 'PERIODO_REPORTE', 'URL', 'EN_EAFA', 'ACREDITACION_ESTADO'
+]
 
+# Diccionario sin tildes ni eñes
 porcentajes = {
-    'Levantamiento_de_información': 0.15,
-    'Aplicación_de_encuestas': 0.10,
-    'Análisis_de_Información': 0.15,
-    'Construcción_de_juicios_de_valor': 0.10,
-    'Taller_de_Autoevaluación': 0.05,
-    'Formulación_del_plan_de_mejoramiento': 0.15,
+    'Levantamiento_de_informacion': 0.15,
+    'Aplicacion_de_encuestas': 0.10,
+    'Analisis_de_Informacion': 0.15,
+    'Construccion_de_juicios_de_valor': 0.10,
+    'Taller_de_Autoevaluacion': 0.05,
+    'Formulacion_del_plan_de_mejoramiento': 0.15,
     'Aval_de_Consejo_de_Facultad': 0.04,
-    'Radicación_ante_el_Consejo_Nacional_de_Acreditación': 0.04,
-    'Visita_de_Evaluación Externa': 0.15,
+    'Radicacion_ante_el_Consejo_Nacional_de_Acreditacion': 0.04,
+    'Visita_de_Evaluacion_Externa': 0.15,
     'Informe_Preliminar_de_Pares': 0.05,
-    'Resolución_de_Acreditación': 0.02
+    'Resolucion_de_Acreditacion': 0.02
 }
 
-from datetime import datetime # OJO CON ESTO
-import unicodedata
-
-def quitar_tildes(s):
-    return ''.join(c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn')
-
+# Función para quitar tildes de nombres de columnas en un DataFrame
 def quitar_tildes_columnas(df):
     df.columns = [quitar_tildes(col) for col in df.columns]
     return df
 
-
 def main_autoeval(path_file_principal, df_historico):
-  
-  df_principal = pd.read_excel(path_file_principal, header=0, sheet_name=0)
-  # trasnformación de columnas hoja 1:
-  df_principal = df_principal.drop(columns=["APERTURA PROCESO DE AUTOEVALUACIÓN (ELIMINAR)"])
-  # poner la fecha de hoy en periodo reporte:
-  # Obtener la fecha de hoy como cadena en el formato deseado (por ejemplo, '2023-11-20')
-  today_date_str = datetime.now().strftime('%Y-%m-%d')
-  df_principal['PERIODO_REPORTE'] = today_date_str
-  df_principal.columns = cols_hoja_1_oficial
+    df_principal = pd.read_excel(path_file_principal, header=0, sheet_name=0)
 
-  df_principal["FECHA_ACREDITACIÓN"] = pd.to_datetime(df_principal["FECHA_ACREDITACIÓN"])
-  df_principal["FECHA_ACREDITACIÓN"] = df_principal["FECHA_ACREDITACIÓN"].dt.strftime('%Y-%m-%d')
+    # Quitar tildes y eñes de las columnas del DataFrame leído
+    df_principal = quitar_tildes_columnas(df_principal)
+    # Transformación de columnas hoja 1:
+    df_principal = df_principal.drop(columns=["APERTURA PROCESO DE AUTOEVALUACION (ELIMINAR)"])
 
-  df_principal["VENCIMIENTO_ACREDITACIÓN"] = pd.to_datetime(df_principal["VENCIMIENTO_ACREDITACIÓN"])
-  df_principal["VENCIMIENTO_ACREDITACIÓN"] = df_principal["VENCIMIENTO_ACREDITACIÓN"].dt.strftime('%Y-%m-%d')
-  
-  for row in range(len(df_principal)):
-    row_itr = df_principal.iloc[row,:]
-    s = 0
-    for key in porcentajes:
-        print("\n")
-        print("######################### Autoeval")
-        print("\n")
-        print("\n")
-        print(key)
-        try: 
-            if int(row_itr[key]) == 1:
-                s += porcentajes[key]
-        except:
-            pass
-        print("\n")
-        print("\n")
-    df_principal['PORCENTAJE_TOTAL'][row] = int(round(s,3)*100)
-  
-  df_principal = quitar_tildes_columnas(df_principal)
-  
-  df_historico = pd.concat([df_principal, df_historico], ignore_index=True)
-  
-  return df_principal, df_historico
+    # Poner la fecha de hoy en periodo reporte
+    today_date_str = datetime.now().strftime('%Y-%m-%d')
+    df_principal['PERIODO_REPORTE'] = today_date_str
+
+    # Asignar las columnas corregidas
+    df_principal.columns = cols_hoja_1_oficial
+
+    # Formateo de fechas
+    df_principal["FECHA_ACREDITACION"] = pd.to_datetime(df_principal["FECHA_ACREDITACION"]).dt.strftime('%Y-%m-%d')
+    df_principal["VENCIMIENTO_ACREDITACION"] = pd.to_datetime(df_principal["VENCIMIENTO_ACREDITACION"]).dt.strftime('%Y-%m-%d')
+
+    # Calculo de porcentaje total
+    for row in range(len(df_principal)):
+        row_itr = df_principal.iloc[row, :]
+        s = 0
+        for key in porcentajes:
+            print("\n######################### Autoeval\n\n", key)
+            try:
+                if int(row_itr[key]) == 1:
+                    s += porcentajes[key]
+            except:
+                pass
+        df_principal.at[row, 'PORCENTAJE_TOTAL'] = int(round(s, 3) * 100)
+
+    # Quitar tildes a las columnas
+    df_principal = quitar_tildes_columnas(df_principal)
+
+    # Concatenar con el histórico
+    df_historico = pd.concat([df_principal, df_historico], ignore_index=True)
+
+    return df_principal, df_historico
+
 
 
 # ==================================================
